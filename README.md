@@ -215,8 +215,7 @@ The optional HTTPX/httpcore double-cancel integration is not verified in v0.1.
 
 See [Contributing](https://github.com/0then0/cancellens/blob/main/CONTRIBUTING.md) for
 locked development setup, regression checks and integration reproduction.
-[Publishing](https://github.com/0then0/cancellens/blob/main/docs/publishing.md) documents
-PyPI Trusted Publishing and release setup. Changes are listed in the
+Changes are listed in the
 [changelog](https://github.com/0then0/cancellens/blob/main/CHANGELOG.md).
 
 ## Related work

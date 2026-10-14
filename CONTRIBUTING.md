@@ -47,5 +47,3 @@ Describe the behavior being changed, a reproducing case when applicable, and che
 actually executed. Update user documentation when changing a public contract. Keep
 runtime dependencies at zero unless a dependency is required and explicitly approved.
 Use the lockfile and preserve unsupported-runtime boundaries.
-
-See [Publishing](docs/publishing.md) for release setup and the release procedure.
