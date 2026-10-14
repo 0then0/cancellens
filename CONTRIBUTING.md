@@ -47,3 +47,16 @@ Describe the behavior being changed, a reproducing case when applicable, and che
 actually executed. Update user documentation when changing a public contract. Keep
 runtime dependencies at zero unless a dependency is required and explicitly approved.
 Use the lockfile and preserve unsupported-runtime boundaries.
+
+## Releases
+
+Update the package version and changelog, then push a matching version tag such as
+`v0.1.0`. The `publish.yml` workflow runs the full checks, validates the tag, builds and
+tests distributions, creates a GitHub Release with changelog notes and artifacts, and
+uploads to PyPI through the `pypi` environment's Trusted Publisher. Only the upload job
+receives OIDC permission. Pushing ordinary commits does not publish a package.
+
+The workflow also accepts manually published GitHub Releases. Configure the PyPI
+publisher for owner `0then0`, repository `cancellens`, workflow filename `publish.yml`
+and environment `pypi` before releasing. PyPI files cannot be overwritten; corrections
+to a published package require a new version.
