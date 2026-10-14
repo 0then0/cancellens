@@ -1,0 +1,52 @@
+name: checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.11', '3.12', '3.13', '3.14']
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    env:
+      UV_PYTHON: ${{ matrix.python }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          version: '0.13.1'
+          enable-cache: true
+      - run: uv sync --locked --python ${{ matrix.python }}
+      - name: Check matrix interpreter
+        run: uv run python -c "import os, sys; assert '.'.join(map(str, sys.version_info[:2])) == os.environ['UV_PYTHON']; print(sys.version)"
+      - run: uv run python validation/watchdog.py --timeout 90 -- uv run pytest -q
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy
+      - run: uv build
+      - run: uv run python validation/wheel_smoke.py --wheel dist/cancellens-0.1.0-py3-none-any.whl
+  aiosqlite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      UV_PYTHON: '3.12'
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          version: '0.13.1'
+          enable-cache: true
+      - run: uv sync --locked --python 3.12
+      - run: uv build
+      - run: uv run python validation/watchdog.py --timeout 300 -- uv run python validation/aiosqlite/run.py --wheel dist/cancellens-0.1.0-py3-none-any.whl --output acceptance.json
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: aiosqlite-evidence
+          path: acceptance.json

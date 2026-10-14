@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cancellens"
+version = "0.1.0"
+description = "Replay observed asyncio suspension points and check cancellation invariants."
+readme = "README.md"
+requires-python = ">=3.10,<3.15"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{name = "0then0"}]
+keywords = ["asyncio", "cancellation", "testing", "resource-leaks", "pytest"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Framework :: AsyncIO",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/0then0/cancellens"
+Repository = "https://github.com/0then0/cancellens"
+Documentation = "https://github.com/0then0/cancellens#readme"
+Issues = "https://github.com/0then0/cancellens/issues"
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "ruff==0.17.0", "mypy==2.4.0"]
+release = ["twine==7.0.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cancellens"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+files = ["src/cancellens"]

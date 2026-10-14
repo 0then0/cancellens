@@ -1,0 +1,32 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 128 128"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">CancelLens</title>
+  <desc id="desc">A lens inspecting an interrupted async path and a released resource.</desc>
+  <rect width="128" height="128" rx="28" fill="#f4f7fb" />
+  <path
+    d="M31 45h17v23h26"
+    fill="none"
+    stroke="#93a4b8"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <circle cx="31" cy="45" r="5" fill="#334860" />
+  <circle cx="48" cy="68" r="5" fill="#334860" />
+  <circle cx="74" cy="68" r="8" fill="#18856b" />
+  <path
+    d="m70 68 3 3 5-6"
+    fill="none"
+    stroke="white"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path d="m47 34 11 11m0-11L47 45" stroke="#d46a39" stroke-width="4" stroke-linecap="round" />
+  <circle cx="55" cy="53" r="35" fill="none" stroke="#24364e" stroke-width="6" />
+  <path d="m81 79 25 25" stroke="#24364e" stroke-width="11" stroke-linecap="round" />
+</svg>
