@@ -112,7 +112,13 @@ def main() -> None:
                 "--output",
                 str(output),
             ]
-            code = watchdog(command, timeout=max(60, args.repeats * 20), cwd=str(work), env=env)
+            code = watchdog(
+                command,
+                timeout=max(60, args.repeats * 20),
+                cwd=str(work),
+                env=env,
+                new_session=False,
+            )
             if code:
                 raise RuntimeError(f"{label} acceptance exited with {code}")
             data = json.loads(output.read_text())

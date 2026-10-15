@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- Add native HTTPX/httpcore double-cancel validation against immutable base and
+  proposed-fix snapshots, using the published CancelLens 0.1.0 wheel.
+- Keep nested validation workers in the outer watchdog's process group and stop
+  remaining members after a timeout or signal.
+- Add subprocess regression tests for deadlines, interruption, and resource release.
+- Document installation, report interpretation, reproducible validation, and
+  contributor workflows.
+
 ## 0.1.0
 
 Initial release.

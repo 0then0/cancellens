@@ -1,5 +1,9 @@
 # Instrumentation, lifecycle and reports
 
+This reference describes CancelLens v0.1 semantics. For installation and a complete
+test, start with the [README](../README.md). External resource contracts and evidence
+are documented under [Validation](../validation/README.md).
+
 ## Coroutine protocol
 
 CancelLens executes the native operation coroutine in a normal asyncio Task. A
@@ -92,7 +96,11 @@ of the sweep caller propagates after attempted teardown where state exists; a se
 external cancellation can interrupt finalization. Exploration may exceed total_timeout
 by the current reserved oracle/teardown windows and drain. In-process deadlines need
 a functioning loop and cannot kill threads or native code. Use the subprocess watchdog
-for potentially hanging cases.
+for potentially hanging cases. The validation supervisor owns a POSIX process group;
+its nested workers inherit that group so an outer deadline can terminate them along
+with their manager. Windows supports immediate-child termination only. See
+[process supervision](../validation/README.md#process-supervision) for the command and
+ownership rules.
 
 ## JSON schema version 1
 

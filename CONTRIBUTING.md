@@ -1,62 +1,98 @@
 # Contributing
 
-CancelLens is a small asyncio testing library. Changes should preserve real Task
-cancellation, avoid adding suspension points to the operation, and retain explicit
-coverage and unresolved outcomes when a schedule cannot be evaluated.
+CancelLens observes native asyncio suspension points and injects real Task cancellation.
+Changes should preserve those semantics, resource ownership, and explicit unresolved
+outcomes when a schedule cannot be evaluated.
 
-## Development environment
+## Set up a checkout
 
-Use CPython 3.10–3.14 and uv. The default local interpreter is Python 3.12.
+Use CPython 3.10–3.14 and [uv](https://docs.astral.sh/uv/). The checkout defaults to
+Python 3.12; dependencies and development tools are pinned in `uv.lock`.
 
 ```sh
+git clone https://github.com/0then0/cancellens.git
+cd cancellens
 uv sync --locked
-uv run ruff check .
-uv run ruff format --check .
-uv run mypy
-uv run python validation/watchdog.py --timeout 90 -- uv run pytest -q
 ```
 
-For another interpreter, set `UV_PYTHON`, for example `UV_PYTHON=3.10 uv run pytest`.
-CI sets this variable for every matrix job and checks the selected interpreter before
-running tests. CI covers Linux and Windows; local tests can also run on macOS.
+To select another supported interpreter, use `uv sync --locked --python 3.10` and set
+`UV_PYTHON=3.10` when running commands. Do not update the lockfile for unrelated work.
+If the environment is already prepared, `uv run --no-sync` runs checks without syncing it.
 
-Use disposable resources in tests. Tests that may block the loop, resist cancellation
-or leave a worker thread running must execute under an external subprocess watchdog.
-Add behavior tests for resource invariants, Task status, lifecycle ownership, replay
-or coverage when changing those contracts. An oracle error must remain distinct from
-an explicit invariant violation.
+## Run checks
 
-## Build and integration checks
+The unit suite uses disposable local resources and does not download upstream code.
+Run it under the external watchdog because some tests deliberately exercise blocked
+loops or cancellation-resistant work.
+
+```sh
+uv run --no-sync python validation/watchdog.py --timeout 90 -- uv run --no-sync pytest -q
+uv run --no-sync ruff check .
+uv run --no-sync ruff format --check .
+uv run --no-sync mypy
+```
+
+Mypy checks the typed runtime package. Tests and validation scripts are checked by
+Ruff and their behavioral checks. For a restricted cache directory, pass
+`--cache-dir /tmp/cancellens-mypy` to mypy.
+
+Add regression tests for meaningful behavior: resource invariants, Task status,
+lifecycle ownership, replay, or coverage. Oracle evaluation errors must remain distinct
+from explicit invariant violations. Cases must release their owned Tasks, threads,
+connections, and sockets rather than relying on interpreter shutdown.
+
+## Build and test a wheel
 
 ```sh
 uv build
-uv run --group release twine check --strict dist/*
-uv run python validation/wheel_smoke.py --wheel dist/cancellens-0.1.0-py3-none-any.whl
-uv run python validation/watchdog.py --timeout 300 -- uv run python validation/aiosqlite/run.py --wheel dist/cancellens-0.1.0-py3-none-any.whl --output acceptance.json
+uv run --no-sync python validation/wheel_smoke.py --wheel dist/cancellens-0.1.0-py3-none-any.whl
 ```
 
-The wheel smoke check installs the wheel in a temporary environment outside the
-checkout and executes the README example. The aiosqlite check downloads immutable
-snapshots and uses temporary SQLite databases and worker threads. It needs network
-access to GitHub and the package index. Read the [case documentation](validation/aiosqlite/README.md)
-before changing its hooks or oracle.
+The smoke check installs the wheel in a temporary environment outside the checkout,
+runs the README and pool examples, and checks that runtime dependencies remain empty.
 
-## Pull requests
+External integration checks require network access for pinned dependencies and
+immutable upstream snapshots. They use disposable environments and local resources.
+See [Validation](validation/README.md) for commands and the acceptance contracts.
 
-Describe the behavior being changed, a reproducing case when applicable, and checks
-actually executed. Update user documentation when changing a public contract. Keep
-runtime dependencies at zero unless a dependency is required and explicitly approved.
-Use the lockfile and preserve unsupported-runtime boundaries.
+## CI
+
+The unit matrix runs CPython 3.10–3.14 on Linux and Windows. Separate Linux jobs run
+the aiosqlite and native HTTPX/httpcore cases. The HTTPX job pins Python 3.12.15 and
+uploads its evidence even when validation fails. Runner images use `ubuntu-latest`
+and `windows-latest`; their OS versions are not fixed by this repository.
+
+POSIX process-group tests cover nested workers, outer timeouts, interruption, and
+termination escalation. These tests are skipped on Windows, where the watchdog only
+terminates its immediate child.
+
+## Submit changes
+
+Keep changes focused and preserve real Task cancellation. Runtime dependencies should
+remain at zero unless a new dependency is necessary and explicitly agreed upon.
+Describe the behavior changed, a reproducing scenario, and checks actually run. Update
+public documentation when changing a contract. Use English Conventional Commits, for
+example `fix: preserve cancellation delivery during cleanup`.
 
 ## Releases
 
-Update the package version and changelog, then push a matching version tag such as
-`v0.1.0`. The `publish.yml` workflow runs the full checks, validates the tag, builds and
-tests distributions, creates a GitHub Release with changelog notes and artifacts, and
-uploads to PyPI through the `pypi` environment's Trusted Publisher. Only the upload job
-receives OIDC permission. Pushing ordinary commits does not publish a package.
+Only publish a new package version when a runtime or packaging change requires it.
+Validation and documentation updates can be committed without a version bump.
 
-The workflow also accepts manually published GitHub Releases. Configure the PyPI
-publisher for owner `0then0`, repository `cancellens`, workflow filename `publish.yml`
-and environment `pypi` before releasing. PyPI files cannot be overwritten; corrections
-to a published package require a new version.
+1. Update `pyproject.toml`, `src/cancellens/__init__.py`, and the report version in
+   `src/cancellens/_model.py`. Update wheel filenames in CI and release commands,
+   then add the release notes to `CHANGELOG.md`.
+2. Prepare the pinned release tools with `uv sync --locked --group release`.
+3. Run checks, `uv build`, the wheel smoke check, and
+   `uv run --group release twine check --strict dist/*`.
+4. Push a matching version tag, such as `v0.1.0`, only when ready to publish.
+
+The [publish workflow](.github/workflows/publish.yml) validates the tag, runs CI, builds
+and tests distributions, creates a GitHub Release, and uploads to PyPI through the
+`pypi` environment's Trusted Publisher. Only the upload job receives OIDC permission.
+Ordinary branch pushes run CI without publishing a package.
+
+The workflow also supports a manually published GitHub Release. The PyPI Trusted
+Publisher must reference owner `0then0`, repository `cancellens`, workflow `publish.yml`,
+and environment `pypi`. Published PyPI files cannot be replaced; a package correction
+requires a new version.

@@ -75,6 +75,7 @@ def main() -> None:
             timeout=30,
             cwd=str(work),
             env=env,
+            new_session=False,
         )
         if code:
             raise SystemExit(code)

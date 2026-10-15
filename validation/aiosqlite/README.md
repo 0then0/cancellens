@@ -15,14 +15,14 @@ proposed patch, not a released correction or general aiosqlite cancellation safe
 
 ## Reproduce
 
-Use CPython 3.10–3.14 and uv. Recorded evidence uses CPython 3.12.15 on macOS arm64;
+Use CPython 3.10–3.14 and uv. The checked-in evidence uses CPython 3.12.15 on macOS arm64;
 SQLite version and platform are included in the JSON report. Network access to GitHub
 and the package index is needed for disposable upstream build environments.
 
 ```sh
 uv sync --locked
 uv build
-uv run python validation/watchdog.py --timeout 300 -- uv run python validation/aiosqlite/run.py --wheel dist/cancellens-0.1.0-py3-none-any.whl --repeats 5 --output acceptance.json
+uv run --no-sync python validation/watchdog.py --timeout 300 -- uv run --no-sync python validation/aiosqlite/run.py --wheel dist/cancellens-0.1.0-py3-none-any.whl --repeats 5 --output acceptance-aiosqlite.json
 ```
 
 `--python /path/to/python` selects another acceptance interpreter. The acceptance
@@ -35,6 +35,17 @@ checks archive paths, builds real aiosqlite and installs it beside the wheel. Wo
 run outside the source checkout with PYTHONPATH removed and an external watchdog.
 Installed core.py hashes must match the selected snapshot. No third-party code is
 vendored or incorporated in CancelLens.
+
+The checked-in report uses a locally built CancelLens wheel with SHA-256
+`0935bf0e14d5aca00d76a8d463deb995208dab50544e50d5d6fdb03ef0da5bf3`.
+It is not a direct run of the published PyPI artifact. The HTTPX case separately
+validates the exact published CancelLens 0.1.0 wheel.
+
+Workers inherit the enclosing POSIX watchdog's process group while retaining their
+individual deadlines, so the whole-run deadline can stop them if their manager exits.
+See [process supervision](../README.md#process-supervision). The aggregate JSON is
+written after both comparisons complete; an interrupted run may have only its log
+and nonzero exit status.
 
 ## Ordering and oracle
 

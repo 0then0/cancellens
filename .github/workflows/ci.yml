@@ -50,3 +50,24 @@ jobs:
         with:
           name: aiosqlite-evidence
           path: acceptance.json
+
+  httpx:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      UV_PYTHON: '3.12.15'
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          version: '0.13.1'
+          enable-cache: true
+      - run: uv sync --locked --python 3.12.15
+      - run: uv run python -c "import sys; assert sys.version_info[:3] == (3, 12, 15)"
+      - run: uv run python validation/watchdog.py --timeout 300 -- uv run python validation/httpx/run.py --repeats 10 --output acceptance-httpx.json
+      - uses: actions/upload-artifact@v7.0.2
+        if: always()
+        with:
+          name: httpx-native-evidence
+          path: acceptance-httpx*.json
+          if-no-files-found: error
