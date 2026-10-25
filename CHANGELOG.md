@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add EditorConfig and Git attributes for consistent text handling across platforms.
+- Add security and conduct policies, issue forms, and a pull request template.
+- Pin GitHub Actions to immutable commits and run static checks outside the test matrix.
+
 - Add native HTTPX/httpcore double-cancel validation against immutable base and
   proposed-fix snapshots, using the published CancelLens 0.1.0 wheel.
 - Keep nested validation workers in the outer watchdog's process group and stop

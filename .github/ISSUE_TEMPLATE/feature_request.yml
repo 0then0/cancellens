@@ -1,0 +1,22 @@
+name: Feature request
+description: Describe a concrete cancellation-testing need or improvement.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What are you trying to test, and what prevents you from doing it with CancelLens today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the result you need. An API sketch or small example is welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives and compatibility
+      description: Describe workarounds you tried and any relevant effects on existing cases, reports, or replay.

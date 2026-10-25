@@ -4,6 +4,17 @@ CancelLens observes native asyncio suspension points and injects real Task cance
 Changes should preserve those semantics, resource ownership, and explicit unresolved
 outcomes when a schedule cannot be evaluated.
 
+## Before opening an issue or pull request
+
+Search existing issues, then use the [issue forms](https://github.com/0then0/cancellens/issues/new/choose)
+for bugs, feature requests, or usage questions. A bug report should include a runnable
+case, the expected and actual behavior, and the relevant versions. Use disposable data
+and review reports before attaching them.
+
+Follow the [Code of Conduct](CODE_OF_CONDUCT.md). Report suspected vulnerabilities
+privately as described in [SECURITY.md](SECURITY.md), rather than posting exploit
+details in an issue or pull request.
+
 ## Set up a checkout
 
 Use CPython 3.10–3.14 and [uv](https://docs.astral.sh/uv/). The checkout defaults to
@@ -18,6 +29,19 @@ uv sync --locked
 To select another supported interpreter, use `uv sync --locked --python 3.10` and set
 `UV_PYTHON=3.10` when running commands. Do not update the lockfile for unrelated work.
 If the environment is already prepared, `uv run --no-sync` runs checks without syncing it.
+
+## Editing conventions
+
+`.editorconfig` uses UTF-8, LF, four spaces for Python, and two spaces for structured
+configuration and Markdown. Python lines follow Ruff's 100-character limit. Markdown
+trailing spaces are preserved for intentional hard line breaks. `.gitattributes`
+normalizes text line endings on every platform; do not renormalize unrelated files.
+Native Windows batch scripts use CRLF in both editor and checkout settings.
+
+Keep generated build output and local validation reports out of commits. Checked-in
+`validation/*/evidence*.json` files are intentional reproducibility artifacts, marked
+as generated for GitHub diffs. Do not reformat or edit their observations by hand.
+`.env.example` may be committed as a template; it must not contain real credentials.
 
 ## Run checks
 
@@ -57,10 +81,22 @@ See [Validation](validation/README.md) for commands and the acceptance contracts
 
 ## CI
 
-The unit matrix runs CPython 3.10–3.14 on Linux and Windows. Separate Linux jobs run
+Pushes to `main`, pull requests, and manual runs trigger CI. Tagged releases reuse
+the same checks before publishing rather than starting a second standalone CI run.
+
+Static checks run once in a dedicated Linux job. The unit and wheel-consumer matrix
+runs CPython 3.10–3.14 on Linux and Windows. Separate Linux jobs run
 the aiosqlite and native HTTPX/httpcore cases. The HTTPX job pins Python 3.12.15 and
 uploads its evidence even when validation fails. Runner images use `ubuntu-latest`
 and `windows-latest`; their OS versions are not fixed by this repository.
+
+Actions are pinned to full commit SHAs, with their release versions recorded in
+comments. Keep the comment and SHA consistent when updating an action. Checkout does
+not retain repository credentials; write and OIDC permissions are scoped to the
+release jobs that need them. Branch and pull-request CI supersedes older runs;
+tagged release checks are allowed to finish. See GitHub's
+[secure use reference](https://docs.github.com/en/actions/reference/security/secure-use)
+for the action-pinning and permission model.
 
 POSIX process-group tests cover nested workers, outer timeouts, interruption, and
 termination escalation. These tests are skipped on Windows, where the watchdog only

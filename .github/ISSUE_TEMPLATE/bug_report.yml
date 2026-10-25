@@ -1,0 +1,51 @@
+name: Bug report
+description: Report unexpected CancelLens behavior with a reproducible case.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For vulnerabilities or sensitive reports, follow the [security policy](https://github.com/0then0/cancellens/blob/main/SECURITY.md).
+        A FAIL can be an expected result for a broken resource contract. Explain what you believe CancelLens evaluated incorrectly.
+  - type: input
+    id: version
+    attributes:
+      label: CancelLens version or commit
+      description: Include whether you installed a release or run from a checkout.
+      placeholder: 0.1.0 from PyPI
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: CPython version, operating system, and event loop or Task factory if customized.
+      placeholder: CPython 3.12.15, Linux, standard asyncio loop and default Task factory
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide a runnable case and command using disposable local resources. Include dependency versions when relevant.
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: State the expected outcome or invariant and why it should hold.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include the outcome, error, or unexpected resource state.
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Report or additional context
+      description: If available, attach a redacted JSON report or schedule. Prefixes depend on source and interpreter versions. Do not include secrets or private application data.
