@@ -20,15 +20,17 @@ jobs:
       UV_PYTHON: '3.12'
       RELEASE_TAG: ${{ github.event.release.tag_name || github.ref_name }}
     steps:
-      - uses: actions/checkout@v7.0.1
-      - uses: astral-sh/setup-uv@v10.3.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
         with:
           version: '0.13.1'
           enable-cache: true
       - run: uv sync --locked --group release
       - name: Check release tag matches package version
         run: |
-          uv run python - <<'PY'
+          uv run --no-sync python - <<'PY'
           import os
           import tomllib
           from pathlib import Path
@@ -36,9 +38,9 @@ jobs:
           assert os.environ["RELEASE_TAG"] == f"v{version}", "Release tag must match pyproject.toml"
           PY
       - run: uv build
-      - run: uv run --group release twine check --strict dist/*
-      - run: uv run python validation/wheel_smoke.py --wheel dist/cancellens-0.1.0-py3-none-any.whl
-      - uses: actions/upload-artifact@v7.0.2
+      - run: uv run --no-sync twine check --strict dist/*
+      - run: uv run --no-sync python validation/wheel_smoke.py --wheel dist/cancellens-0.1.0-py3-none-any.whl
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: distributions
           path: dist/*
@@ -54,8 +56,10 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       RELEASE_TAG: ${{ github.ref_name }}
     steps:
-      - uses: actions/checkout@v7.0.1
-      - uses: actions/download-artifact@v8.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: distributions
           path: dist/
@@ -85,9 +89,9 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: actions/download-artifact@v8.0.2
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: distributions
           path: dist/
       - name: Publish distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.14.2
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2

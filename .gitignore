@@ -19,6 +19,7 @@ dist/
 coverage.xml
 htmlcov/
 .tox/
+.nox/
 
 # Local validation output; checked-in evidence lives in validation/*/evidence*.json.
 /acceptance*.json
@@ -27,5 +28,6 @@ htmlcov/
 .env
 .envrc
 .env.*
+!.env.example
 .pypirc
 .DS_Store

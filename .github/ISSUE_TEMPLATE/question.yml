@@ -1,0 +1,20 @@
+name: Usage question
+description: Ask about defining cases, interpreting reports, or replaying schedules.
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Explain what you are trying to do and what is unclear.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Relevant context
+      description: Include the docs or examples you used, and a small case or redacted report if helpful. Do not include secrets or private data.
+  - type: input
+    id: environment
+    attributes:
+      label: Version and environment
+      description: For behavior-specific questions, include CancelLens and CPython versions and your operating system.

@@ -1,0 +1,28 @@
+# Use the same text and script line endings on every supported platform.
+* text=auto eol=lf
+
+*.py text diff=python
+*.md text
+*.toml text
+*.yml text
+*.yaml text
+*.json text
+*.svg text
+uv.lock text
+
+# Evidence is generated output; keep the harness visible in code reviews.
+validation/**/evidence*.json linguist-generated=true
+
+# Native Windows batch scripts require CRLF on checkout.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.whl binary

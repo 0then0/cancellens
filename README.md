@@ -214,6 +214,18 @@ These are bounded integration results, not general safety claims about either li
 - [Validation](https://github.com/0then0/cancellens/blob/main/validation/README.md): reproducible external cases and evidence.
 - [Changelog](https://github.com/0then0/cancellens/blob/main/CHANGELOG.md): released changes and unreleased project updates.
 
+## Community and support
+
+Use the [issue forms](https://github.com/0then0/cancellens/issues/new/choose) for bug
+reports, feature requests, and usage questions. Include a minimal case and relevant
+versions when reporting unexpected behavior.
+
+Read [Contributing](https://github.com/0then0/cancellens/blob/main/CONTRIBUTING.md)
+before submitting changes. Participation follows the
+[Code of Conduct](https://github.com/0then0/cancellens/blob/main/CODE_OF_CONDUCT.md).
+Report vulnerabilities privately using the
+[security policy](https://github.com/0then0/cancellens/blob/main/SECURITY.md).
+
 ## Related work
 
 - [SQLAlchemy cancellation testing](https://github.com/sqlalchemy/sqlalchemy/blob/main/lib/sqlalchemy/testing/cancellation.py)
