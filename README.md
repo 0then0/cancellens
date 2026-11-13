@@ -3,13 +3,14 @@
 # CancelLens
 
 [![Checks](https://img.shields.io/github/actions/workflow/status/0then0/cancellens/ci.yml?branch=main&label=checks)](https://github.com/0then0/cancellens/actions/workflows/ci.yml)
-[![CPython](https://img.shields.io/badge/CPython-3.10%E2%80%933.14-blue)](#supported-environments)
+[![CPython](https://img.shields.io/badge/CPython-3.10%E2%80%933.15-blue)](#supported-environments)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](https://github.com/0then0/cancellens/blob/main/LICENSE)
 [![Runtime dependencies](https://img.shields.io/badge/runtime_dependencies-0-green)](https://github.com/0then0/cancellens/blob/main/pyproject.toml)
 
 CancelLens tests what happens when an asyncio operation is cancelled while suspended.
 It observes real suspension points, repeats the operation on fresh state, and sends
-real `Task.cancel()` requests. Your oracle checks resource release, state consistency,
+real `Task.cancel()` requests by default. An explicit AnyIO mode sends a real
+`CancelScope.cancel()` request. Your oracle checks resource release, state consistency,
 and whether the same pool or resource can serve another operation.
 
 Use it in ordinary pytest tests with native Python coroutines and real I/O. A passing
@@ -22,8 +23,15 @@ cancellation safety or cover every possible task interleaving.
 python -m pip install cancellens
 ```
 
-The runtime uses only the standard library. No pytest plugin or pytest-asyncio is
-required. For a source checkout, see [Contributing](https://github.com/0then0/cancellens/blob/main/CONTRIBUTING.md).
+The base installation uses only the standard library. No pytest plugin or
+pytest-asyncio is required. For AnyIO scope cancellation, install the optional extra:
+
+```sh
+python -m pip install 'cancellens[anyio]'
+```
+
+The extra accepts AnyIO 4 (`>=4,<5`); it is not imported by the default asyncio mode.
+For a source checkout, see [Contributing](https://github.com/0then0/cancellens/blob/main/CONTRIBUTING.md).
 
 ## Quick start
 
@@ -80,9 +88,12 @@ contract failure. Other oracle exceptions, including `AssertionError`, mean the 
 could not be evaluated correctly. Use static, non-sensitive invariant text because
 it is included in reports.
 
-`Completion.state` is `returned`, `cancelled`, `raised`, `pending`, or `not_started`.
-The operation's value and exception are available to the oracle in memory. Your oracle
-judges their meaning, including whether suppressed cancellation is acceptable.
+`Completion.state` is `returned`, `cancelled`, `raised`, `pending`, `not_started`, or
+`scope_cancelled`. The last state means the operation was interrupted and the
+harness-owned AnyIO scope suppressed its cancellation exception; the operation Task
+returned normally. A normal Task exit does not establish that no cancellation occurred.
+The operation's value and exception are available to the oracle in memory when they
+exist. Your oracle judges their meaning, including whether suppression is acceptable.
 
 ## Explore cancellation schedules
 
@@ -125,6 +136,40 @@ limits = Limits(
 
 Pass limits with `await sweep(case, limits=limits)` or `await replay(case, schedule, limits=limits)`.
 
+## AnyIO scope cancellation
+
+```python
+report = await sweep(case, cancellation_mode="anyio", backend="asyncio")
+```
+
+This mode supports AnyIO 4 on the standard asyncio backend, CPython, and default Task
+factory. It runs the same two uncancelled baselines, then one scope cancellation at
+each matched baseline point. It does not schedule double cancellations, even with
+`Limits(max_depth=2)`. One request can cause repeated cancellation exceptions while
+the scope remains effectively cancelled, including at awaits in cleanup. These are
+repeated deliveries from AnyIO, not additional requests from CancelLens.
+
+The harness creates, enters, and exits one scope in the operation Task. It adds no
+awaits to the operation and keeps its Task identity. Oracle and teardown run outside
+that scope in their own Tasks and budgets. An awaited cleanup normally needs a real,
+bounded shield, for example `with anyio.fail_after(0.1, shield=True): ...`.
+The [synthetic examples](examples/anyio_cleanup.py) compare resource reuse and terminal
+callback events with and without shielding under both cancellation modes.
+
+Reports distinguish reaching a target, matching its prefix, calling the scope's
+`cancel()`, observing a cancellation exception, scope suppression, and operation
+completion. Confirmed delivery requires both an observed cancellation exception and
+public `scope.cancelled_caught` evidence from the owned scope. `cancel_called` alone
+is insufficient. User suppression, child Tasks, or shielding can leave attribution
+unknown, so the attempt remains UNRESOLVED with a concrete reason even if its oracle
+records a violation. No exception message, address, or private AnyIO state establishes
+attribution.
+
+Trio, child-Task sweeps, multiple harness-controlled scopes, AnyIO double-cancel
+scheduling, and full coverage of AnyIO APIs are outside this mode's scope. Application
+scopes and shielding may defer or prevent delivery at the requested target; a matched
+point is not a guarantee of a cancellation exception at that exact await.
+
 ## Save reports and replay a schedule
 
 Inside an async test, with a case already defined:
@@ -141,11 +186,19 @@ replayed = await replay(case, Schedule.from_dict(schedule_data))
 replayed.assert_passed()
 ```
 
-A schedule contains one-based targets and the observed prefix through its last target.
-Replay checks visible frame locations, bytecode offsets, code fingerprints, and yielded
-types. Different Python minor versions are refused; changed code or scheduling may
-make replay unresolved. Replay covers only the selected schedule. An empty schedule
-is an uncancelled control.
+A schedule contains one-based targets, the required trace prefix, cancellation mode,
+backend, and AnyIO version when applicable. Replay infers the mode from the schedule;
+an explicit `cancellation_mode` must agree. It checks Python minor and exact AnyIO
+version compatibility before running the factory, then checks visible frame locations,
+bytecode offsets, code fingerprints, and yielded types before cancellation. Changed
+code or scheduling may make replay unresolved. Replay covers only the selected
+schedule. An empty schedule is an uncancelled control.
+
+New reports and schedules use schema version 2. A version 2 schedule must explicitly
+include `cancellation_mode`, `backend`, and `anyio_version` (null for asyncio mode).
+Existing version 1 reports remain ordinary JSON; extracting their schedules with
+`Schedule.from_dict()` preserves `Task.cancel()` semantics. Legacy schedules are never
+reinterpreted as scope cancellation.
 
 Reports omit locals, object reprs, absolute paths, SQL, response bodies, operation
 values, and exception messages. They retain code metadata, exception types, and explicit
@@ -153,10 +206,11 @@ invariant text. See the [instrumentation and report reference](https://github.co
 
 ## Supported environments
 
-CancelLens v0.1 supports CPython 3.10–3.14, the standard asyncio event loop, and the
+CancelLens v0.1 supports CPython 3.10–3.15, the standard asyncio event loop, and the
 default Task factory. CI tests Linux and Windows across those versions. macOS is also
-used for local validation. Python 3.15+, PyPy, uvloop, free-threaded builds, custom or
-eager factories, and Trio/AnyIO cancellation semantics are outside this scope.
+used for local validation. Python 3.16+, PyPy, uvloop, free-threaded builds, custom or
+eager factories, and Trio are outside this scope. AnyIO scope cancellation is available
+only through the explicitly selected mode above.
 
 Observation follows nested Python awaits. Child Tasks and shielded work are boundaries:
 only the caller's wait is visible, and cleanup may outlive the caller. The oracle must
@@ -177,8 +231,12 @@ deadline, the oracle observes state before teardown and emergency cancellation.
 Reserved oracle, teardown, and drain windows can extend the exploration deadline.
 
 Cases own their application Tasks, threads, and external resources. Caller cancellation
-propagates after attempted bounded teardown; another cancellation can interrupt that
-finalization. CancelLens cannot roll back arbitrary external side effects.
+propagates after attempted bounded finalization. In AnyIO mode, the runner shields
+its final oracle/teardown wait windows and drain from an external cancelled caller
+scope, then checks for deferred caller cancellation before another attempt or return.
+These lifecycle shields are not scheduled cancellation targets. Repeated direct
+`Task.cancel()` requests can still interrupt finalization; default asyncio mode retains
+its existing behavior. CancelLens cannot roll back arbitrary external side effects.
 
 For potentially hanging tests in a checkout, use the validation watchdog:
 
@@ -198,6 +256,11 @@ These cases use real resources and inspect them before final cleanup:
 - [aiosqlite cancelled opening](https://github.com/0then0/cancellens/blob/main/validation/aiosqlite/README.md): a native SQLite
   connection and worker thread expose a lost connection during opening. The pinned
   base fails; the selected proposed patch passes the opening contract.
+- [LangChain terminal callbacks](validation/langchain/README.md): an unchanged pinned
+  upstream revision uses a local tool and async callback handler. Scope cancellation
+  interrupts the terminal event; a separately labeled local shielded control records
+  it. This validates the callback mechanism related to #41744, not every part of the
+  reported application failure.
 - [HTTPX/httpcore double cancellation](https://github.com/0then0/cancellens/blob/main/validation/httpx/README.md): loopback TCP and
   a one-slot HTTP/1.1 pool expose interrupted response cleanup. The pinned base loses
   the slot; the selected proposed patch allows cleanup to retry and the next request

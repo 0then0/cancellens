@@ -1,0 +1,4913 @@
+{
+  "acceptance_schema_version": 1,
+  "recorded_at_utc": "2026-11-13T13:39:57.994157+00:00",
+  "revision": "980e4a80d01f699ba359db139cd7c8bfc348c110",
+  "contract": "BaseTool.ainvoke cancellation records an inline terminal callback event",
+  "control": "local callback handler uses bounded AnyIO shielding; upstream unchanged",
+  "wheel_sha256": "c836abab7c21fb1d0d45db09d8b5bc706fe3cdefc1a3e7e2e19be101c276348b",
+  "errors": [],
+  "upstream_check": {
+    "issue_url": "https://github.com/langchain-ai/langchain/issues/41744",
+    "issue_state": "open",
+    "issue_updated_at": "2026-11-08T07:23:24Z",
+    "master_sha": "980e4a80d01f699ba359db139cd7c8bfc348c110",
+    "master_manager_sha256": "03e1c6f23aa9d21a14b055a5bf0c7ab26956e90b5c35dfcfd375f9bb19df9089",
+    "master_tool_method_decorators": {
+      "on_tool_end": [],
+      "on_tool_error": []
+    },
+    "checked_at_utc": "2026-11-13T13:40:00.744278+00:00"
+  },
+  "revision_url": "https://github.com/langchain-ai/langchain/commit/980e4a80d01f699ba359db139cd7c8bfc348c110",
+  "archive_sha256": "dbcb8da314fd001d605054ea49fd7e0b22d6e065de8bfcc39f795697122ac8f1",
+  "worker_exit_code": 0,
+  "worker": {
+    "python": "3.12.16",
+    "implementation": "CPython",
+    "import_path": "/var/folders/zn/vr2m_dqj6tl0k58d4k7f_gpc0000gq/T/cancellens-langchain-n6c5b_rz/venv/lib/python3.12/site-packages/cancellens/__init__.py",
+    "versions": {
+      "packaging": "26.3",
+      "websockets": "17.4",
+      "xxhash": "4.1.0",
+      "requests": "2.34.2",
+      "langsmith": "0.14.17",
+      "certifi": "2026.10.23",
+      "orjson": "3.13.0",
+      "pydantic": "2.14.3",
+      "langchain-core": "1.8.0",
+      "zstandard": "0.25.0",
+      "httpcore": "1.0.9",
+      "pydantic_core": "2.50.4",
+      "typing-inspection": "0.4.5",
+      "urllib3": "2.8.0",
+      "h11": "0.16.0",
+      "sniffio": "1.3.1",
+      "PyYAML": "6.0.3",
+      "httpcore2": "2.16.0",
+      "truststore": "0.10.5",
+      "httpx2": "2.16.0",
+      "langchain-protocol": "0.0.21",
+      "annotated-types": "0.8.0",
+      "jsonpatch": "1.47",
+      "cancellens": "0.1.0",
+      "distro": "1.9.0",
+      "uuid_utils": "0.19.0",
+      "requests-toolbelt": "1.0.0",
+      "httpx": "0.28.1",
+      "typing_extensions": "4.16.0",
+      "charset-normalizer": "3.5.2",
+      "anyio": "4.15.1",
+      "tenacity": "9.2.1",
+      "jsonpointer": "3.12",
+      "idna": "3.20"
+    },
+    "module_sha256": {
+      "cancellens": {
+        "__init__.py": "8eb4114ca064046d5a0f529c834f1c05e76738de2dce284ec559bb638390d6e0",
+        "_model.py": "e316661348ab9548925d4b3544844be01ff7272f17624d84749908858a8afe5c",
+        "_observe.py": "80ca8f7f2bb18b603855d27aaae97c3bbb40ccae1011d457365f5b90a0dd3dca",
+        "_runner.py": "755b46bfe02b109ebab5ff9f3e0f8cfea7f284337050ceb28ba7a6105038e9ae"
+      },
+      "langchain_core": {
+        "__init__.py": "fa4e54cbdf24eb2cfc4fd24776115853a9bc7977447b4d072a470f6765d2a781",
+        "_api/__init__.py": "5d7525859c2acc9c29fbc229071c0b4180d0728d179840b8aa6dfa0bbabbff7a",
+        "_api/beta_decorator.py": "e1b7a665bfaf7980b94cac292ae53314beb8ef2fa8c69a3dac6a5bfe5647f0e9",
+        "_api/deprecation.py": "8fb557183c102218f344b431268784f99f07a29973c47da5a41ddcbf7ddc5c94",
+        "_api/internal.py": "b0da229a7a6676097532290c8bf4cc08f5d6b55b6cdfcc528299ac8f8fbfa467",
+        "_api/path.py": "cb7740bec1b8252d01b9612ba49e4a8710b29095f68b4de461d78353e22ea776",
+        "_import_utils.py": "d9c455cf8a37c29ecdf2e5244bb8177912c091e0539bcdedba0445863bb7d380",
+        "_security/__init__.py": "f7f3d527917470784434c7a3257657c2209117f68064ad4c2982121cfde195ba",
+        "_security/_exceptions.py": "d81205fa2da3ade9ba03451346bbd49cb96c7a7f1e23d2c28f33a9ddf206072d",
+        "_security/_policy.py": "094ef0fed8474969c9bdcd97a1c679f3afff0afa242519152a2a61d6ad94c890",
+        "_security/_ssrf_protection.py": "2055331e8f3991431cf8366593ef4b29f605985b8bb4ecfef87bb63623de3480",
+        "_security/_transport.py": "c7b4f71e7915f4f52e8ddb3942b23dbecb71c878eb042790778af372a18128ca",
+        "agents.py": "7cb0c91dd670d185cdf1d665699eac320438831f82f5e7bbe41d32ceb93a5776",
+        "caches.py": "ef38ab793ad7439cf412170b0b683ef0eb10c9ff3617a78194a6a814474d94b1",
+        "callbacks/__init__.py": "79cb9a4b8511da9536ce64fd2d7e11e05c19154f9b144159f6eea38fd752d8c9",
+        "callbacks/base.py": "789df950d94517f7599c2ba24d6aafd87e6edcaf47b62edd139584a2156e8dd1",
+        "callbacks/file.py": "4acc3355b59187137795d147cc61c40b7755d7c11c9ba640641cf5a97594b41d",
+        "callbacks/manager.py": "03e1c6f23aa9d21a14b055a5bf0c7ab26956e90b5c35dfcfd375f9bb19df9089",
+        "callbacks/stdout.py": "7ddafa97f73297a0e5168a2db6e01871d08783649a0f343701cd57c75124d578",
+        "callbacks/streaming_stdout.py": "a2a4b1629a908d76fa56a8eb7d2f0c976c21bc8666de92796eaae109e4b1fb4b",
+        "callbacks/usage.py": "5cc78a3ad61dce9fbcfce69b3cdf9813a459f4fd9bdf7fdaf6d4cb9ec307891c",
+        "chat_history.py": "1e6041f01cf8d3ae774fe7b7540451a0575595dc92bec3df42569f6e6ab2cf6e",
+        "chat_loaders.py": "6f9ec69772863f1abd8182637adb077c99b523a912aa2edb0c4f757c924e47ce",
+        "chat_sessions.py": "8cb60776b0bd1950e977a0c8c78007dcbb44e440135bda37dfbb271c38585654",
+        "cross_encoders.py": "daad4542c78d6572e778e63ce58fce21b74c9690a0843321219add799063c442",
+        "decisions/__init__.py": "c5723acb8440a7f3553cf8996e99468c867beb59c753b3fc4bf1db9a0e18fdee",
+        "decisions/base.py": "50d4b4a8a2eee86f3551e4e3b4580cbd2b1ac3a88afa9f063df94d41030f9b07",
+        "decisions/types.py": "bf9c35a9a600af82df142c5cf2ceac765c6f2a73952b64d39271a854eb62d8cb",
+        "document_loaders/__init__.py": "0e464fa7d704566b27cfd48cd71b6e79f1ff7c6405bc0d96b69446ea278f3c1b",
+        "document_loaders/base.py": "8831ae87cd8321068efe1cef3f7648a95093eacb37e28a6538b33e47c8be9b21",
+        "document_loaders/blob_loaders.py": "3a6e03038646e6895f04ef478f0a858c62605807737bbe1f79adff8561172301",
+        "document_loaders/langsmith.py": "41fda77a6933d9a1daa33318a086a205de376e51fd8a03e3e23e34af7f9e7e50",
+        "documents/__init__.py": "49bfe91bd0b8cf603871b3e07b399c2a7022f3451bccac8ed1407bd274fc7214",
+        "documents/base.py": "41d89515bd238459f43f0b7e857db0321ea25464faa8d17d358e8c1095fe5865",
+        "documents/compressor.py": "db2f95c9ff70a0ee2b489d96f2671d1395c300d5607e4594d292c626698fbe1c",
+        "documents/transformers.py": "c2dc07c483d561733efd79823fd2b7369521aae52807acb63c583a30a61b6e72",
+        "embeddings/__init__.py": "d127dc764552497993157ce7532799abf6f56a3a702060ee7860007f0c8ca546",
+        "embeddings/embeddings.py": "bb9d13d95c4b2f27c604229c56d59f4a266bb4ab9af2c3921f04921d12ad727a",
+        "embeddings/fake.py": "3c2a71df650f2916737418d50b32c533ea937770aca0b8483354138c219ab21d",
+        "env.py": "0d0c7012a86b2359cdfa282d03a710a509762ceb9d9482ec2a1966d6977238da",
+        "example_selectors/__init__.py": "93ccb4721b4485a1dff18d7f9d9543b1bf4258375121615bf54f34ea69db1afa",
+        "example_selectors/base.py": "91108b89c7a4ff582cc1b75b2e11a8107c1e6d0c4fd8c86c8b2998d334ee3b13",
+        "example_selectors/length_based.py": "757fefa68b0c3a1b5cb70adc01b6b6dcb6842850666d959451e285d909e195b8",
+        "example_selectors/semantic_similarity.py": "4533270a70c67e6b090cad714cac8d9391ee25a743b48d976e798024958bbfda",
+        "exceptions.py": "46a2f65aaf87fc5c5cc97b5f42d31325e2e8ada2edb9aa6d07b37d48f087a3cd",
+        "globals.py": "8cedbb16cb462b5732ccd4f4f7a183f6516ad9880dc58d4367a36d03fc8a751f",
+        "indexing/__init__.py": "283f40ad1a5f55c71bd5fca4dadd505aaac1bf575fca4fd983d7ee4adf81ccb4",
+        "indexing/api.py": "4f6b25112cf4155c8df4f057b095a1924ca384363e0c7c1a41fb5983f41ed122",
+        "indexing/base.py": "ac764d79ccac9088d147c2f807943e5d081ea156452351d48dfa31fc4c4879b3",
+        "indexing/in_memory.py": "78c2fc5ad83d9b89ce23b445768c975b183149face0845099fe8a9a116e424e7",
+        "language_models/__init__.py": "ff4872a17c801f7b2fc5585aca25de6759b4ccb9ed50d2231b7d8ef43d7987fd",
+        "language_models/_compat_bridge.py": "0a9d35b275a73fc6094c2a00a5eb0e6e6b2c914b70bea2ec323914bdeeb0a7b6",
+        "language_models/_utils.py": "20923d6d226d88dfb525245e2794437f2806fa6dfde942c64ec539c69bef858b",
+        "language_models/base.py": "5f22ea327693c2aad32391d9004791d55481ac020b8bbd5f79e04bb51e99a692",
+        "language_models/chat_model_stream.py": "ee1dadb562d49539914aae554fee30c1f99a7f36821addc80e389ee87c766ef8",
+        "language_models/chat_models.py": "6b37dd84a34a49b932983ec92e5dc826fefdd1a047424a014a251a0ed0e2d507",
+        "language_models/fake.py": "85bdb2537b2760f4ee799889fb4288d0c287601366eb3754c3bc5ef16aa0b846",
+        "language_models/fake_chat_models.py": "9b02b80d63c08f6da1d9dc4f9c9954d33fc53d90a62253b8a32ff2bdbef230c4",
+        "language_models/llms.py": "215a010b95bf0754d156b13240ea4d114124834c2186a720a30797cb45999cd1",
+        "language_models/model_profile.py": "4fb8d67a83f948d88980edd249278dd917a77271e550a068e812390b9ab37354",
+        "load/__init__.py": "88de2070606a21e8f01254050f008a9cf65b23fab47321f8698a5d4508f98146",
+        "load/_validation.py": "0bbd6b48d5641dcd1054d5a423a6231bcd5fba8274e5447f16a3f55147f9a4f1",
+        "load/dump.py": "a928ca73ad5e5848ab8273393ae257b23625549bbb571ddcff5e15f4f55ce65d",
+        "load/load.py": "a72098a89e538b39708d783125a0e725e0d76219b9fa6e364e23b84433d59772",
+        "load/mapping.py": "63750fbb14f21a49d66a1a9958f48aa48f4e2e6833518dd7a116da17268cc0e1",
+        "load/serializable.py": "444e63d0e4d6209653c5ed1717aa2598fc7fca29120aec683f800690d8067ab3",
+        "messages/__init__.py": "57e9822046dd2c6a4342cab4b362322e9c53b2d4ce31f106b288da947ad27d63",
+        "messages/ai.py": "6aa23c2e260d8c3c1a78ce75852219c145ce74afca3c970c0ac2eb41610574f1",
+        "messages/base.py": "c99304892b711954f0662ceb309433dc0579ea8576c9a997a51cd90ed145e9f6",
+        "messages/block_translators/__init__.py": "a30ffde00a2a75c01989e165a633bbe65f997270705f39d3321aeaaee5eff20c",
+        "messages/block_translators/anthropic.py": "37163a0d1b1081880eded516dd6a3b2b710fea3d0432ce18490f36175a5faea7",
+        "messages/block_translators/bedrock.py": "ccefd9e5a7bc97c11ec1b5c14f67f1e2e098520259ba33c0c4874c38de378d68",
+        "messages/block_translators/bedrock_converse.py": "5aa57194c2c02d80366665d4ebadc61079a9f9ccf279a0ebafdc28fe3f5ec213",
+        "messages/block_translators/google_genai.py": "d6c4f54c4bef3d2000915d9eca91581ea182e5e51ba4f4b6df011b1804d67ed9",
+        "messages/block_translators/google_vertexai.py": "d91ce92852a2d7df7569618af28b1d90aabc6ca69d9b2f2af3a911debd1fe8ae",
+        "messages/block_translators/groq.py": "2c793b825305b92b15403326d3f4420d6314d059e1f6dc20bbafddb4b6bf3812",
+        "messages/block_translators/langchain_v0.py": "6885eec50990ce1bad12062313d0025ec6699dfe496234d897e8dd7f55a15d98",
+        "messages/block_translators/openai.py": "cf07c6f82e286def07ca643afc6a68a9e611fe26199d3e687da2728db411d850",
+        "messages/chat.py": "b7d6b3f91d437b61dd884861a46c881689c2a98d3750092a31dbedb71d75ae13",
+        "messages/content.py": "1e26bc640b656bbf3de421bf105e9d1a4ed5762a0973015b353a25f7ee48626b",
+        "messages/function.py": "46591c1511161a00259c3d29b0e3967369106bbc1567e909065fa68be50871dc",
+        "messages/human.py": "5c2abfb7b9b2deab88dd0390e5c423f4ebf45be007db950286faad983ee7cee6",
+        "messages/modifier.py": "f1dde68479ca30353d5e4c3f337fae7f9581b6a0387598fcd6d0fb03a660a3fa",
+        "messages/notification.py": "408ed37da591fb19caf57ff0ce22bb76c9768637953e832db2ae70017b80ede7",
+        "messages/system.py": "bc744e0c6503c11aa20737787faee14e740d143756f6c4879defd83da108d8c5",
+        "messages/tool.py": "218c48ca2f82cffcc8c453ab8387f1b9821f5728b3b868c7903b9ea3ff1e5a08",
+        "messages/utils.py": "113831a1a017a00aaabec5276ae3607d45681d06d181428dd5990331c0b4858d",
+        "output_parsers/__init__.py": "83930fac3f2c24af23799442202bd6469f9db40ab58eacbe7c5fb04b97a0af94",
+        "output_parsers/_refusal.py": "cdcd0646e3cbe180dc8a56d2ce9a3ef08edb3393037107559beed56127768bcc",
+        "output_parsers/base.py": "932303008784b26218b2ad91fa6a6c4fcc7b142bec7a2d8b83b0dcd60da8e50b",
+        "output_parsers/format_instructions.py": "1caf8a8cf7d07c1363d15fdab68d3f18decf16c0be5a2c6df15d90e75e457499",
+        "output_parsers/json.py": "a539848ecb3743963d3ea2203d5140fb81df3898d70f4cd41d7b7f84281060dc",
+        "output_parsers/list.py": "909645c4b4e34bd779a8d82dfbb4ee076d30eddc197dc42b4856c9295a68dcc8",
+        "output_parsers/openai_functions.py": "558c2900ad853545632d120b91dddc17cd57cb9101dceb8dbed3abdb5dce4892",
+        "output_parsers/openai_tools.py": "3aa798e120dbd76d41a8bc2e95de7ce484a8aa6f8582ab5c8db9d54a26d5d03c",
+        "output_parsers/pydantic.py": "d583d1ce5e796e5c4d55e660e2a4deefdf7eaabdfe3e5a4945f8628a045410a2",
+        "output_parsers/string.py": "87d240616e573e8f3ada8241465f8eaacd536db7503196bed7f43a691325fff5",
+        "output_parsers/transform.py": "f6a9ccc423103fec55f966a257345c0beba97c756ecd2875cac5a03dd889c724",
+        "output_parsers/xml.py": "a3484442b658981b21d02d1eea8014cf03852ca817669971cd78ded5477723e8",
+        "outputs/__init__.py": "367d9b6e4034c6dea880c1efbd212092dd9d2c6cd96b36d71827695ab4fea7af",
+        "outputs/chat_generation.py": "f2dee0345bd812265e418a95be59ff3cc8004c9e78f81a10a57591bac07ed740",
+        "outputs/chat_result.py": "42094550d8eee8332185972684ff0c6062cd0e1536db45f7f22cb777ad6e8904",
+        "outputs/generation.py": "59dd6a9daac545dc3dd35ab51ed6d017c05e2197cb9242de8bb19f1b6378fda6",
+        "outputs/llm_result.py": "b0db3ef4df335043deafa44c48db165952fd671eb4cd50df3a537ad50aedd529",
+        "outputs/run_info.py": "25ac654401054e81c68f68bcdc9811e762f2ee37aee57653671fac5848f8b232",
+        "prompt_values.py": "fa620dba9c71bb16fd8caa049d6b9dfef8aa3b40252fdbb906f24df6ad1dfdb7",
+        "prompts/__init__.py": "d0b87655ce1ba50f666dfa1a3d316dbda5c506bead04194888b034a5f03ef407",
+        "prompts/base.py": "c7118ac5eb0f6e80d6f45d1ffa4734291eda09dc3d2b7f5f1d2252e20d9c800b",
+        "prompts/chat.py": "10fb9bf80ff21258c4c859879285acd46ec571c52cdbdda79c863029d2c53e18",
+        "prompts/dict.py": "2bb0057b3fa7ef6a6f95eab45eaaa13adcf43b6a9c288453e1c7c14d4f3982cc",
+        "prompts/few_shot.py": "488c035ffd9a9376710dee4d2e8e22555189a901f9d319ca539900ff678982a5",
+        "prompts/few_shot_with_templates.py": "2b81414b954893f80a55a052d296aa9977f8b4ccd5f8399ff29e42da06ebdc0d",
+        "prompts/image.py": "326639e646361d84bd6e4423ce4abda925b8e60875e480cb4333864149ece324",
+        "prompts/loading.py": "a760451aba277ff097dd007b220fe170b7686a7c622e9a2a51e6f90b83f3b2e6",
+        "prompts/message.py": "787655fdaa1cf079d70f75bd0e9a20be4828ebe309b99d6011191c01fe73228c",
+        "prompts/prompt.py": "e0f7debf2902b7fdd8e47d0848a49fb533c07024c7f9c6fc5d4f7fa695c8df41",
+        "prompts/string.py": "ef7d0575524298ca1785b29d9a43d725b2539e90dc67598cd536efc2edf71be9",
+        "prompts/structured.py": "54cc2b088c86856d2a2b469b72c793f7025291fb5f442137501866313863d4db",
+        "rate_limiters.py": "af67e64631eca49018e263fb82fa465e04370cd825d6f7a03c9d0daac10657c2",
+        "retrievers.py": "c37b6d1e4472ecd832c584e0be73670e2f060065e90541817bc11a25d49b0a18",
+        "runnables/__init__.py": "3115ee61a18a70378fcdfa9a7eb3bc9cb765b7734cd481156110d711f9c41143",
+        "runnables/base.py": "407284bddbe9616352ad9d3dd8dab4f3dd197aa31a5c9fc253e57e4265839242",
+        "runnables/branch.py": "822ba1f0cc9d2500a4662f65a300a4779fcc2c1cee4ae356e001d9aa120ea526",
+        "runnables/config.py": "304ae7748a0b47a052551182a638f2bf9e40840eaa5f9042011a3b349c6cf06b",
+        "runnables/configurable.py": "4080a77af0748328cb821f7e39d666165b56c6cca6d0d0de1c50370ce2010d72",
+        "runnables/fallbacks.py": "bc7f6ebc1aa2dade3aa6c78c25a603b8e42e364194b43d8e5b4b029b89ccdac0",
+        "runnables/graph.py": "e61ca1f4c3f7c131eef8fb7db7d5b01d0ac0862fc028007bead1665d546adaa1",
+        "runnables/graph_ascii.py": "9ff0d9847e0e34e81bce4b761458ee6f409ad3c450624988ec586857bd183841",
+        "runnables/graph_mermaid.py": "616da04bc1224119356ff247ca86f6fc6cb54f2ff23837ff1af7e87334af723e",
+        "runnables/graph_png.py": "dc93f25ad4d15687e72324b18ad371db448d7b03246b40afe95593e3f5867123",
+        "runnables/history.py": "ec163e4b6f3d24847c7cd256990d90d5ca474fff2bc2cc9797074ba3bcef4dcc",
+        "runnables/passthrough.py": "260de5bbbc388123f43ef30b9c4625e3e4748fd4c378db5f2f646347dc8bf556",
+        "runnables/retry.py": "15650101a066e5b12cfbea0e0b5b30de4ea13d8af9b2397fc42eaf35c3bd3ad5",
+        "runnables/router.py": "d1c64de4f918d14238a0822b204a36776737d38ae043c2d79031df3e8bc12740",
+        "runnables/schema.py": "cc4c6a47ac39373207a70f8bd3b406d5f92f8efa9433446bb6b566994acc2c73",
+        "runnables/utils.py": "93cf38e67ff8a525d2f8591da4726449eb96581cf8d8f2a341322fefc11a32e2",
+        "stores.py": "8da8ec747bdf5f35dd70098a2c0bb1d47349670be1d74f18244b61f1effdd559",
+        "structured_query.py": "4203f2dcce70e67899b65a046284f823eba98f92d5a1c27f41e19004bae50458",
+        "sys_info.py": "f805bbfd2af67b1ed9b661d10c6c4b17a7b280341f56b09d72596e48e8f4eb72",
+        "tools/__init__.py": "d1bd72c189435f6935072871e69db5872570674dd36db2aa223174321d235955",
+        "tools/base.py": "239c77d07a9283ced902fb161ca0fcdb5e532a9824caaa169ab014ac41c899d4",
+        "tools/convert.py": "6b92dd07d522d0dda6d912555cfb531e0752b2a67d3fbb232536c195d969933d",
+        "tools/render.py": "803de95d85a309a0cab18abf319fb20915e5d705096ce87a749a1b75af558d83",
+        "tools/retriever.py": "582ab78ea57ec6151a053853847780c577a34d20a33923c12c00c795131cbc96",
+        "tools/simple.py": "c70c21d037ec263013292d2d967238049c3f65ab836ac6e6d2e831ec267b0efd",
+        "tools/structured.py": "f51689a1707c1ee31a173b8d8c9aaea33d994f4d95a79e6d51fe7369b2247142",
+        "tracers/__init__.py": "14f73c4f4f1a8021df2195d2443474e92cd92925b31c336085bfe074eb726127",
+        "tracers/_compat.py": "70025260e5fcc02de58234f9cc3fcfa82b33d172e7f96c10d99c93b422611c1d",
+        "tracers/_streaming.py": "06793eb5fbbee9a88ffe0d01a12bd993dce01280c9265046fd7f22d00d9aa902",
+        "tracers/base.py": "cb0087dd94263f2e8add3849a24876fa0f38a0ba487adf768f431d448451a10d",
+        "tracers/context.py": "c72e9cd3cc50179f54e06f0dc1aedc9cf8f4d3d9b1fb9905ac38c452d9dc6f29",
+        "tracers/core.py": "6d54c14b1f31f4fcfe4c4511e761c7394211fd833c653bb2f63a3c13daa660b0",
+        "tracers/evaluation.py": "795ba994676bbfb327e34b7c5f6014d94b05284fa66a3287699be4aa581d5355",
+        "tracers/event_stream.py": "0d556cc7740ac89b918d8f1e223fdb366607db0be499351c977a915b44de4c8d",
+        "tracers/langchain.py": "eb43548aa6b6217e79ea23b97ad9ceec354de4308239964b835cb0d9b536e5ce",
+        "tracers/log_stream.py": "9c229547d67d2f1d359e4ff2cf43e8222b26b405819087c4889b66c9dbcd8d9d",
+        "tracers/memory_stream.py": "ea317e4543e0aa39ef0eb29cca364a266dc1699b2abee996096cf820a1ad5a19",
+        "tracers/root_listeners.py": "58c732eb6caba3c88263102353898217c6f1b4a88a527c38a28d2d7b3d03a4ef",
+        "tracers/run_collector.py": "d5b6e07367719942b5b1a547c9b144dcb8fbf91d8cc4d119159f852225ed9168",
+        "tracers/schemas.py": "f81d79f49fc0d692dd98de862d1df23364bf2a8cc959ac0a68573bbc8db15da5",
+        "tracers/stdout.py": "13c8d7e29a821dfe9362bd0086b533238013c367ce0116431350f11991f31a8d",
+        "utils/__init__.py": "ca7e991873318bb323aa88d20644f6b02c58469a3beb300805c2a74d1689d8f7",
+        "utils/_gateway.py": "65706c13663a33aeab5ec770d43628bcf23e59b4ca724e4235471bdce47e21de",
+        "utils/_merge.py": "5a4d22710505194c7b0cafae5186b2e6a14711316d6016bf5ae55d1f0cde2ccd",
+        "utils/_signature.py": "28d98d28b267372ea3417b41b900d9e8f3fe65dbc7b79d0e96b3037173343cf2",
+        "utils/aiter.py": "76f4b3d55024361f4e87d6f42d2033927b6fd7f762b5401047bed3f466cb5636",
+        "utils/env.py": "cd718be532a4eb1be24f212d831d7f0e8ab835b50ced4b9e53ddd29da7e65c23",
+        "utils/formatting.py": "8c99309487745c4d0533b4f65aff7001473f704cb1f8c26dc6b07713032b97c3",
+        "utils/function_calling.py": "5006fd0dcbb3bbe35bef7c21c87cddf4c3897520ba4bff9c60bbe29256c27838",
+        "utils/html.py": "e64bfa3694530eb98b0e0e16370c5d82ae99ad68c5ecd71b6b2938ad279ec6d4",
+        "utils/image.py": "d4c1fc2db8347f61df8530b8ce86ca32fa55a0745fa6ccaf587abd69ee3110da",
+        "utils/input.py": "6e1c13a650c28f3f8b8c099ad4504143a31a0a87ad4e543815c3489ce72c758f",
+        "utils/interactive_env.py": "79bb3ad67774af0363087e8628e9874414a4dc57cd9b051fb532e13931097dde",
+        "utils/iter.py": "20d2b8c6d99dc9dc905c22dc61bd10a2f3f95e8bc5fee763aa9683c03255649c",
+        "utils/json.py": "4cad052d85a5947b9b2489e692b46b00a4d274a24a113269c3d28bed997f6305",
+        "utils/json_schema.py": "25a47b19b4514badc9c8dff24881de6f6934ed374bab6ae47ed7054acfe280e3",
+        "utils/mustache.py": "85a2e9633e79039bbfb951321dcbfe509c2bdf441c7967c9fdba71e4818cc85c",
+        "utils/pydantic.py": "c8e9fb374c1b6ab269682ccdf6eb1f1893f4a54e5e071a845713e9af95f58357",
+        "utils/strings.py": "69c5e00cacb09d3c9955d371dff8121bc7f7710e6aecc70d6789382e709a610c",
+        "utils/usage.py": "530e0fd50999c5a93979fbfcc7f477357350141e2e51ba1949006adb27abfa24",
+        "utils/utils.py": "d1b6db85618d104eb6694e4b3d3f9507b02092ac6507281de8323b4ca2cd42a2",
+        "utils/uuid.py": "5f42ea5a1adcc1827fb5ac292f09fa5e9ae2fa359e5a725b9a922e6e7958d55b",
+        "vectorstores/__init__.py": "5f658049df9981248ebf29df6ec6cc67c667e1a90cd5821d2f7f3fe27c64850c",
+        "vectorstores/base.py": "e843cfee0389906b2bb8dac6b8ad67b8b2c50cd6003222070f3d55dd5ac61f06",
+        "vectorstores/in_memory.py": "b6ca63061d5f8277de199bcc5df759923164f141d0192ccf6fdd92a385c9688c",
+        "vectorstores/utils.py": "200b404b1f51ad4e8f4f181a7f4573358656c72565c601335b72888db25de1bb",
+        "version.py": "262e571ce730b4a55b99738842e2f86a840836af8acf0c12faf3af48de3d904d"
+      }
+    },
+    "variants": {
+      "anyio_unshielded": {
+        "sweep": {
+          "schema_version": 2,
+          "package_version": "0.1.0",
+          "interpreter": "3.12.16",
+          "implementation": "CPython",
+          "mode": "sweep",
+          "cancellation_mode": "anyio",
+          "backend": "asyncio",
+          "anyio_version": "4.15.1",
+          "outcome": "FAIL",
+          "coverage": {
+            "baseline_points": 2,
+            "single_planned": 2,
+            "single_valid": 2,
+            "double_planned": 0,
+            "double_valid": 0,
+            "attempts_run": 4,
+            "complete": true,
+            "reasons": []
+          },
+          "limits": {
+            "max_points": 40,
+            "max_attempts": 45,
+            "max_depth": 1,
+            "phase_timeout": 1,
+            "total_timeout": 15,
+            "cleanup_timeout": 0.1
+          },
+          "attempts": [
+            {
+              "schedule": {
+                "cancel_at": [],
+                "prefix": [],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "anyio",
+                "backend": "asyncio",
+                "anyio_version": "4.15.1",
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1266,
+                      "offset": 1184,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                      "line": 1198,
+                      "offset": 156,
+                      "code": "51eb5035a1895540"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_end",
+                      "line": 47,
+                      "offset": 46,
+                      "code": "0821302bdc1c57ea"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 40,
+                      "offset": 310,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [],
+              "completion": {
+                "state": "returned",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "PASS",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 0
+            },
+            {
+              "schedule": {
+                "cancel_at": [],
+                "prefix": [],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "anyio",
+                "backend": "asyncio",
+                "anyio_version": "4.15.1",
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1266,
+                      "offset": 1184,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                      "line": 1198,
+                      "offset": 156,
+                      "code": "51eb5035a1895540"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_end",
+                      "line": 47,
+                      "offset": 46,
+                      "code": "0821302bdc1c57ea"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 40,
+                      "offset": 310,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [],
+              "completion": {
+                "state": "returned",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "PASS",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 0
+            },
+            {
+              "schedule": {
+                "cancel_at": [
+                  1
+                ],
+                "prefix": [
+                  {
+                    "index": 1,
+                    "kind": "_asyncio.Task",
+                    "stack": [
+                      {
+                        "file": "case.py",
+                        "function": "callback_case.<locals>.operation",
+                        "line": 71,
+                        "offset": 76,
+                        "code": "d9789354bebf0285"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.ainvoke",
+                        "line": 775,
+                        "offset": 82,
+                        "code": "143a89d969d41f0f"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.arun",
+                        "line": 1229,
+                        "offset": 842,
+                        "code": "410fa447be7f23fc"
+                      }
+                    ]
+                  }
+                ],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "anyio",
+                "backend": "asyncio",
+                "anyio_version": "4.15.1",
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1262,
+                      "offset": 1050,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                      "line": 1223,
+                      "offset": 156,
+                      "code": "76f7da780acb5e2c"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_error",
+                      "line": 44,
+                      "offset": 90,
+                      "code": "2373605140b73020"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 40,
+                      "offset": 310,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [
+                {
+                  "point": 1,
+                  "accepted": true,
+                  "delivered": true,
+                  "target_reached": true,
+                  "prefix_matched": true,
+                  "scope_cancel_called": true,
+                  "exception_observed": true,
+                  "scope_cancelled_caught": true,
+                  "delivery_unknown_reason": null
+                }
+              ],
+              "completion": {
+                "state": "scope_cancelled",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "FAIL",
+                "detail": "started tool run records exactly one terminal event"
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "FAIL",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 2
+            },
+            {
+              "schedule": {
+                "cancel_at": [
+                  2
+                ],
+                "prefix": [
+                  {
+                    "index": 1,
+                    "kind": "_asyncio.Task",
+                    "stack": [
+                      {
+                        "file": "case.py",
+                        "function": "callback_case.<locals>.operation",
+                        "line": 71,
+                        "offset": 76,
+                        "code": "d9789354bebf0285"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.ainvoke",
+                        "line": 775,
+                        "offset": 82,
+                        "code": "143a89d969d41f0f"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.arun",
+                        "line": 1229,
+                        "offset": 842,
+                        "code": "410fa447be7f23fc"
+                      }
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "kind": "bare_yield",
+                    "stack": [
+                      {
+                        "file": "case.py",
+                        "function": "callback_case.<locals>.operation",
+                        "line": 71,
+                        "offset": 76,
+                        "code": "d9789354bebf0285"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.ainvoke",
+                        "line": 775,
+                        "offset": 82,
+                        "code": "143a89d969d41f0f"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.arun",
+                        "line": 1266,
+                        "offset": 1184,
+                        "code": "410fa447be7f23fc"
+                      },
+                      {
+                        "file": "manager.py",
+                        "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                        "line": 1198,
+                        "offset": 156,
+                        "code": "51eb5035a1895540"
+                      },
+                      {
+                        "file": "manager.py",
+                        "function": "ahandle_event",
+                        "line": 459,
+                        "offset": 118,
+                        "code": "6af0a29d346d3841"
+                      },
+                      {
+                        "file": "manager.py",
+                        "function": "_ahandle_event_for_handler",
+                        "line": 402,
+                        "offset": 124,
+                        "code": "b5fdfd5a9592b24c"
+                      },
+                      {
+                        "file": "case.py",
+                        "function": "Recorder.on_tool_end",
+                        "line": 47,
+                        "offset": 46,
+                        "code": "0821302bdc1c57ea"
+                      },
+                      {
+                        "file": "case.py",
+                        "function": "Recorder.terminal",
+                        "line": 40,
+                        "offset": 310,
+                        "code": "7847b47524e839b8"
+                      },
+                      {
+                        "file": "tasks.py",
+                        "function": "sleep",
+                        "line": 656,
+                        "offset": 42,
+                        "code": "d48c0b1de9d335df"
+                      },
+                      {
+                        "file": "tasks.py",
+                        "function": "__sleep0",
+                        "line": 650,
+                        "offset": 8,
+                        "code": "862fd28aee794214"
+                      }
+                    ]
+                  }
+                ],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "anyio",
+                "backend": "asyncio",
+                "anyio_version": "4.15.1",
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1266,
+                      "offset": 1184,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                      "line": 1198,
+                      "offset": 156,
+                      "code": "51eb5035a1895540"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_end",
+                      "line": 47,
+                      "offset": 46,
+                      "code": "0821302bdc1c57ea"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 40,
+                      "offset": 310,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [
+                {
+                  "point": 2,
+                  "accepted": true,
+                  "delivered": true,
+                  "target_reached": true,
+                  "prefix_matched": true,
+                  "scope_cancel_called": true,
+                  "exception_observed": true,
+                  "scope_cancelled_caught": true,
+                  "delivery_unknown_reason": null
+                }
+              ],
+              "completion": {
+                "state": "scope_cancelled",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "FAIL",
+                "detail": "started tool run records exactly one terminal event"
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "FAIL",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 1
+            }
+          ]
+        },
+        "observations": [
+          {
+            "events": [
+              "start",
+              "end",
+              "start",
+              "end"
+            ],
+            "callback_starts": [
+              "end",
+              "end"
+            ],
+            "completion": "returned",
+            "oracle_ran": true,
+            "reused": true,
+            "teardown_ran": true
+          },
+          {
+            "events": [
+              "start",
+              "end",
+              "start",
+              "end"
+            ],
+            "callback_starts": [
+              "end",
+              "end"
+            ],
+            "completion": "returned",
+            "oracle_ran": true,
+            "reused": true,
+            "teardown_ran": true
+          },
+          {
+            "events": [
+              "start"
+            ],
+            "callback_starts": [
+              "error:CancelledError"
+            ],
+            "completion": "scope_cancelled",
+            "oracle_ran": true,
+            "teardown_ran": true
+          },
+          {
+            "events": [
+              "start"
+            ],
+            "callback_starts": [
+              "end"
+            ],
+            "completion": "scope_cancelled",
+            "oracle_ran": true,
+            "teardown_ran": true
+          }
+        ],
+        "replays": [
+          {
+            "repetition": 1,
+            "report": {
+              "schema_version": 2,
+              "package_version": "0.1.0",
+              "interpreter": "3.12.16",
+              "implementation": "CPython",
+              "mode": "replay",
+              "cancellation_mode": "anyio",
+              "backend": "asyncio",
+              "anyio_version": "4.15.1",
+              "outcome": "FAIL",
+              "coverage": {
+                "baseline_points": 0,
+                "single_planned": 1,
+                "single_valid": 1,
+                "double_planned": 0,
+                "double_valid": 0,
+                "attempts_run": 1,
+                "complete": true,
+                "reasons": []
+              },
+              "limits": {
+                "max_points": 40,
+                "max_attempts": 45,
+                "max_depth": 1,
+                "phase_timeout": 1,
+                "total_timeout": 15,
+                "cleanup_timeout": 0.1
+              },
+              "attempts": [
+                {
+                  "schedule": {
+                    "cancel_at": [
+                      1
+                    ],
+                    "prefix": [
+                      {
+                        "index": 1,
+                        "kind": "_asyncio.Task",
+                        "stack": [
+                          {
+                            "file": "case.py",
+                            "function": "callback_case.<locals>.operation",
+                            "line": 71,
+                            "offset": 76,
+                            "code": "d9789354bebf0285"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.ainvoke",
+                            "line": 775,
+                            "offset": 82,
+                            "code": "143a89d969d41f0f"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.arun",
+                            "line": 1229,
+                            "offset": 842,
+                            "code": "410fa447be7f23fc"
+                          }
+                        ]
+                      }
+                    ],
+                    "interpreter": "CPython-3.12",
+                    "cancellation_mode": "anyio",
+                    "backend": "asyncio",
+                    "anyio_version": "4.15.1",
+                    "schema_version": 2
+                  },
+                  "trace": [
+                    {
+                      "index": 1,
+                      "kind": "_asyncio.Task",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1229,
+                          "offset": 842,
+                          "code": "410fa447be7f23fc"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 2,
+                      "kind": "bare_yield",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1262,
+                          "offset": 1050,
+                          "code": "410fa447be7f23fc"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                          "line": 1223,
+                          "offset": 156,
+                          "code": "76f7da780acb5e2c"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "ahandle_event",
+                          "line": 459,
+                          "offset": 118,
+                          "code": "6af0a29d346d3841"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "_ahandle_event_for_handler",
+                          "line": 402,
+                          "offset": 124,
+                          "code": "b5fdfd5a9592b24c"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.on_tool_error",
+                          "line": 44,
+                          "offset": 90,
+                          "code": "2373605140b73020"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.terminal",
+                          "line": 40,
+                          "offset": 310,
+                          "code": "7847b47524e839b8"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "sleep",
+                          "line": 656,
+                          "offset": 42,
+                          "code": "d48c0b1de9d335df"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "__sleep0",
+                          "line": 650,
+                          "offset": 8,
+                          "code": "862fd28aee794214"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancellations": [
+                    {
+                      "point": 1,
+                      "accepted": true,
+                      "delivered": true,
+                      "target_reached": true,
+                      "prefix_matched": true,
+                      "scope_cancel_called": true,
+                      "exception_observed": true,
+                      "scope_cancelled_caught": true,
+                      "delivery_unknown_reason": null
+                    }
+                  ],
+                  "completion": {
+                    "state": "scope_cancelled",
+                    "exception_type": null
+                  },
+                  "setup": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "oracle": {
+                    "outcome": "FAIL",
+                    "detail": "started tool run records exactly one terminal event"
+                  },
+                  "teardown": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "outcome": "FAIL",
+                  "reasons": [],
+                  "valid_schedule": true,
+                  "trace_complete": true,
+                  "cancellation_exceptions": 2
+                }
+              ]
+            },
+            "observations": [
+              {
+                "events": [
+                  "start"
+                ],
+                "callback_starts": [
+                  "error:CancelledError"
+                ],
+                "completion": "scope_cancelled",
+                "oracle_ran": true,
+                "teardown_ran": true
+              }
+            ],
+            "contract_matched": true
+          },
+          {
+            "repetition": 2,
+            "report": {
+              "schema_version": 2,
+              "package_version": "0.1.0",
+              "interpreter": "3.12.16",
+              "implementation": "CPython",
+              "mode": "replay",
+              "cancellation_mode": "anyio",
+              "backend": "asyncio",
+              "anyio_version": "4.15.1",
+              "outcome": "FAIL",
+              "coverage": {
+                "baseline_points": 0,
+                "single_planned": 1,
+                "single_valid": 1,
+                "double_planned": 0,
+                "double_valid": 0,
+                "attempts_run": 1,
+                "complete": true,
+                "reasons": []
+              },
+              "limits": {
+                "max_points": 40,
+                "max_attempts": 45,
+                "max_depth": 1,
+                "phase_timeout": 1,
+                "total_timeout": 15,
+                "cleanup_timeout": 0.1
+              },
+              "attempts": [
+                {
+                  "schedule": {
+                    "cancel_at": [
+                      1
+                    ],
+                    "prefix": [
+                      {
+                        "index": 1,
+                        "kind": "_asyncio.Task",
+                        "stack": [
+                          {
+                            "file": "case.py",
+                            "function": "callback_case.<locals>.operation",
+                            "line": 71,
+                            "offset": 76,
+                            "code": "d9789354bebf0285"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.ainvoke",
+                            "line": 775,
+                            "offset": 82,
+                            "code": "143a89d969d41f0f"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.arun",
+                            "line": 1229,
+                            "offset": 842,
+                            "code": "410fa447be7f23fc"
+                          }
+                        ]
+                      }
+                    ],
+                    "interpreter": "CPython-3.12",
+                    "cancellation_mode": "anyio",
+                    "backend": "asyncio",
+                    "anyio_version": "4.15.1",
+                    "schema_version": 2
+                  },
+                  "trace": [
+                    {
+                      "index": 1,
+                      "kind": "_asyncio.Task",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1229,
+                          "offset": 842,
+                          "code": "410fa447be7f23fc"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 2,
+                      "kind": "bare_yield",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1262,
+                          "offset": 1050,
+                          "code": "410fa447be7f23fc"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                          "line": 1223,
+                          "offset": 156,
+                          "code": "76f7da780acb5e2c"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "ahandle_event",
+                          "line": 459,
+                          "offset": 118,
+                          "code": "6af0a29d346d3841"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "_ahandle_event_for_handler",
+                          "line": 402,
+                          "offset": 124,
+                          "code": "b5fdfd5a9592b24c"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.on_tool_error",
+                          "line": 44,
+                          "offset": 90,
+                          "code": "2373605140b73020"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.terminal",
+                          "line": 40,
+                          "offset": 310,
+                          "code": "7847b47524e839b8"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "sleep",
+                          "line": 656,
+                          "offset": 42,
+                          "code": "d48c0b1de9d335df"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "__sleep0",
+                          "line": 650,
+                          "offset": 8,
+                          "code": "862fd28aee794214"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancellations": [
+                    {
+                      "point": 1,
+                      "accepted": true,
+                      "delivered": true,
+                      "target_reached": true,
+                      "prefix_matched": true,
+                      "scope_cancel_called": true,
+                      "exception_observed": true,
+                      "scope_cancelled_caught": true,
+                      "delivery_unknown_reason": null
+                    }
+                  ],
+                  "completion": {
+                    "state": "scope_cancelled",
+                    "exception_type": null
+                  },
+                  "setup": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "oracle": {
+                    "outcome": "FAIL",
+                    "detail": "started tool run records exactly one terminal event"
+                  },
+                  "teardown": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "outcome": "FAIL",
+                  "reasons": [],
+                  "valid_schedule": true,
+                  "trace_complete": true,
+                  "cancellation_exceptions": 2
+                }
+              ]
+            },
+            "observations": [
+              {
+                "events": [
+                  "start"
+                ],
+                "callback_starts": [
+                  "error:CancelledError"
+                ],
+                "completion": "scope_cancelled",
+                "oracle_ran": true,
+                "teardown_ran": true
+              }
+            ],
+            "contract_matched": true
+          },
+          {
+            "repetition": 3,
+            "report": {
+              "schema_version": 2,
+              "package_version": "0.1.0",
+              "interpreter": "3.12.16",
+              "implementation": "CPython",
+              "mode": "replay",
+              "cancellation_mode": "anyio",
+              "backend": "asyncio",
+              "anyio_version": "4.15.1",
+              "outcome": "FAIL",
+              "coverage": {
+                "baseline_points": 0,
+                "single_planned": 1,
+                "single_valid": 1,
+                "double_planned": 0,
+                "double_valid": 0,
+                "attempts_run": 1,
+                "complete": true,
+                "reasons": []
+              },
+              "limits": {
+                "max_points": 40,
+                "max_attempts": 45,
+                "max_depth": 1,
+                "phase_timeout": 1,
+                "total_timeout": 15,
+                "cleanup_timeout": 0.1
+              },
+              "attempts": [
+                {
+                  "schedule": {
+                    "cancel_at": [
+                      1
+                    ],
+                    "prefix": [
+                      {
+                        "index": 1,
+                        "kind": "_asyncio.Task",
+                        "stack": [
+                          {
+                            "file": "case.py",
+                            "function": "callback_case.<locals>.operation",
+                            "line": 71,
+                            "offset": 76,
+                            "code": "d9789354bebf0285"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.ainvoke",
+                            "line": 775,
+                            "offset": 82,
+                            "code": "143a89d969d41f0f"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.arun",
+                            "line": 1229,
+                            "offset": 842,
+                            "code": "410fa447be7f23fc"
+                          }
+                        ]
+                      }
+                    ],
+                    "interpreter": "CPython-3.12",
+                    "cancellation_mode": "anyio",
+                    "backend": "asyncio",
+                    "anyio_version": "4.15.1",
+                    "schema_version": 2
+                  },
+                  "trace": [
+                    {
+                      "index": 1,
+                      "kind": "_asyncio.Task",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1229,
+                          "offset": 842,
+                          "code": "410fa447be7f23fc"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 2,
+                      "kind": "bare_yield",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1262,
+                          "offset": 1050,
+                          "code": "410fa447be7f23fc"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                          "line": 1223,
+                          "offset": 156,
+                          "code": "76f7da780acb5e2c"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "ahandle_event",
+                          "line": 459,
+                          "offset": 118,
+                          "code": "6af0a29d346d3841"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "_ahandle_event_for_handler",
+                          "line": 402,
+                          "offset": 124,
+                          "code": "b5fdfd5a9592b24c"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.on_tool_error",
+                          "line": 44,
+                          "offset": 90,
+                          "code": "2373605140b73020"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.terminal",
+                          "line": 40,
+                          "offset": 310,
+                          "code": "7847b47524e839b8"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "sleep",
+                          "line": 656,
+                          "offset": 42,
+                          "code": "d48c0b1de9d335df"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "__sleep0",
+                          "line": 650,
+                          "offset": 8,
+                          "code": "862fd28aee794214"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancellations": [
+                    {
+                      "point": 1,
+                      "accepted": true,
+                      "delivered": true,
+                      "target_reached": true,
+                      "prefix_matched": true,
+                      "scope_cancel_called": true,
+                      "exception_observed": true,
+                      "scope_cancelled_caught": true,
+                      "delivery_unknown_reason": null
+                    }
+                  ],
+                  "completion": {
+                    "state": "scope_cancelled",
+                    "exception_type": null
+                  },
+                  "setup": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "oracle": {
+                    "outcome": "FAIL",
+                    "detail": "started tool run records exactly one terminal event"
+                  },
+                  "teardown": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "outcome": "FAIL",
+                  "reasons": [],
+                  "valid_schedule": true,
+                  "trace_complete": true,
+                  "cancellation_exceptions": 2
+                }
+              ]
+            },
+            "observations": [
+              {
+                "events": [
+                  "start"
+                ],
+                "callback_starts": [
+                  "error:CancelledError"
+                ],
+                "completion": "scope_cancelled",
+                "oracle_ran": true,
+                "teardown_ran": true
+              }
+            ],
+            "contract_matched": true
+          }
+        ],
+        "selected_schedule": {
+          "cancel_at": [
+            1
+          ],
+          "prefix": [
+            {
+              "index": 1,
+              "kind": "_asyncio.Task",
+              "stack": [
+                {
+                  "file": "case.py",
+                  "function": "callback_case.<locals>.operation",
+                  "line": 71,
+                  "offset": 76,
+                  "code": "d9789354bebf0285"
+                },
+                {
+                  "file": "base.py",
+                  "function": "BaseTool.ainvoke",
+                  "line": 775,
+                  "offset": 82,
+                  "code": "143a89d969d41f0f"
+                },
+                {
+                  "file": "base.py",
+                  "function": "BaseTool.arun",
+                  "line": 1229,
+                  "offset": 842,
+                  "code": "410fa447be7f23fc"
+                }
+              ]
+            }
+          ],
+          "interpreter": "CPython-3.12",
+          "cancellation_mode": "anyio",
+          "backend": "asyncio",
+          "anyio_version": "4.15.1",
+          "schema_version": 2
+        },
+        "selected_upstream_path": [
+          "callback_case.<locals>.operation",
+          "BaseTool.ainvoke",
+          "BaseTool.arun"
+        ]
+      },
+      "anyio_local_handler_shield": {
+        "sweep": {
+          "schema_version": 2,
+          "package_version": "0.1.0",
+          "interpreter": "3.12.16",
+          "implementation": "CPython",
+          "mode": "sweep",
+          "cancellation_mode": "anyio",
+          "backend": "asyncio",
+          "anyio_version": "4.15.1",
+          "outcome": "UNRESOLVED",
+          "coverage": {
+            "baseline_points": 2,
+            "single_planned": 2,
+            "single_valid": 1,
+            "double_planned": 0,
+            "double_valid": 0,
+            "attempts_run": 4,
+            "complete": false,
+            "reasons": [
+              "one or more schedules or lifecycle phases could not be evaluated"
+            ]
+          },
+          "limits": {
+            "max_points": 40,
+            "max_attempts": 45,
+            "max_depth": 1,
+            "phase_timeout": 1,
+            "total_timeout": 15,
+            "cleanup_timeout": 0.1
+          },
+          "attempts": [
+            {
+              "schedule": {
+                "cancel_at": [],
+                "prefix": [],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "anyio",
+                "backend": "asyncio",
+                "anyio_version": "4.15.1",
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1266,
+                      "offset": 1184,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                      "line": 1198,
+                      "offset": 156,
+                      "code": "51eb5035a1895540"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_end",
+                      "line": 47,
+                      "offset": 46,
+                      "code": "0821302bdc1c57ea"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 37,
+                      "offset": 180,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [],
+              "completion": {
+                "state": "returned",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "PASS",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 0
+            },
+            {
+              "schedule": {
+                "cancel_at": [],
+                "prefix": [],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "anyio",
+                "backend": "asyncio",
+                "anyio_version": "4.15.1",
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1266,
+                      "offset": 1184,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                      "line": 1198,
+                      "offset": 156,
+                      "code": "51eb5035a1895540"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_end",
+                      "line": 47,
+                      "offset": 46,
+                      "code": "0821302bdc1c57ea"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 37,
+                      "offset": 180,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [],
+              "completion": {
+                "state": "returned",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "PASS",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 0
+            },
+            {
+              "schedule": {
+                "cancel_at": [
+                  1
+                ],
+                "prefix": [
+                  {
+                    "index": 1,
+                    "kind": "_asyncio.Task",
+                    "stack": [
+                      {
+                        "file": "case.py",
+                        "function": "callback_case.<locals>.operation",
+                        "line": 71,
+                        "offset": 76,
+                        "code": "d9789354bebf0285"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.ainvoke",
+                        "line": 775,
+                        "offset": 82,
+                        "code": "143a89d969d41f0f"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.arun",
+                        "line": 1229,
+                        "offset": 842,
+                        "code": "410fa447be7f23fc"
+                      }
+                    ]
+                  }
+                ],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "anyio",
+                "backend": "asyncio",
+                "anyio_version": "4.15.1",
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1262,
+                      "offset": 1050,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                      "line": 1223,
+                      "offset": 156,
+                      "code": "76f7da780acb5e2c"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_error",
+                      "line": 44,
+                      "offset": 90,
+                      "code": "2373605140b73020"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 37,
+                      "offset": 180,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [
+                {
+                  "point": 1,
+                  "accepted": true,
+                  "delivered": true,
+                  "target_reached": true,
+                  "prefix_matched": true,
+                  "scope_cancel_called": true,
+                  "exception_observed": true,
+                  "scope_cancelled_caught": true,
+                  "delivery_unknown_reason": null
+                }
+              ],
+              "completion": {
+                "state": "scope_cancelled",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "PASS",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 1
+            },
+            {
+              "schedule": {
+                "cancel_at": [
+                  2
+                ],
+                "prefix": [
+                  {
+                    "index": 1,
+                    "kind": "_asyncio.Task",
+                    "stack": [
+                      {
+                        "file": "case.py",
+                        "function": "callback_case.<locals>.operation",
+                        "line": 71,
+                        "offset": 76,
+                        "code": "d9789354bebf0285"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.ainvoke",
+                        "line": 775,
+                        "offset": 82,
+                        "code": "143a89d969d41f0f"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.arun",
+                        "line": 1229,
+                        "offset": 842,
+                        "code": "410fa447be7f23fc"
+                      }
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "kind": "bare_yield",
+                    "stack": [
+                      {
+                        "file": "case.py",
+                        "function": "callback_case.<locals>.operation",
+                        "line": 71,
+                        "offset": 76,
+                        "code": "d9789354bebf0285"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.ainvoke",
+                        "line": 775,
+                        "offset": 82,
+                        "code": "143a89d969d41f0f"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.arun",
+                        "line": 1266,
+                        "offset": 1184,
+                        "code": "410fa447be7f23fc"
+                      },
+                      {
+                        "file": "manager.py",
+                        "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                        "line": 1198,
+                        "offset": 156,
+                        "code": "51eb5035a1895540"
+                      },
+                      {
+                        "file": "manager.py",
+                        "function": "ahandle_event",
+                        "line": 459,
+                        "offset": 118,
+                        "code": "6af0a29d346d3841"
+                      },
+                      {
+                        "file": "manager.py",
+                        "function": "_ahandle_event_for_handler",
+                        "line": 402,
+                        "offset": 124,
+                        "code": "b5fdfd5a9592b24c"
+                      },
+                      {
+                        "file": "case.py",
+                        "function": "Recorder.on_tool_end",
+                        "line": 47,
+                        "offset": 46,
+                        "code": "0821302bdc1c57ea"
+                      },
+                      {
+                        "file": "case.py",
+                        "function": "Recorder.terminal",
+                        "line": 37,
+                        "offset": 180,
+                        "code": "7847b47524e839b8"
+                      },
+                      {
+                        "file": "tasks.py",
+                        "function": "sleep",
+                        "line": 656,
+                        "offset": 42,
+                        "code": "d48c0b1de9d335df"
+                      },
+                      {
+                        "file": "tasks.py",
+                        "function": "__sleep0",
+                        "line": 650,
+                        "offset": 8,
+                        "code": "862fd28aee794214"
+                      }
+                    ]
+                  }
+                ],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "anyio",
+                "backend": "asyncio",
+                "anyio_version": "4.15.1",
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1266,
+                      "offset": 1184,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                      "line": 1198,
+                      "offset": 156,
+                      "code": "51eb5035a1895540"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_end",
+                      "line": 47,
+                      "offset": 46,
+                      "code": "0821302bdc1c57ea"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 37,
+                      "offset": 180,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [
+                {
+                  "point": 2,
+                  "accepted": true,
+                  "delivered": null,
+                  "target_reached": true,
+                  "prefix_matched": true,
+                  "scope_cancel_called": true,
+                  "exception_observed": false,
+                  "scope_cancelled_caught": false,
+                  "delivery_unknown_reason": "no cancellation exception observed in operation; delivery may be deferred"
+                }
+              ],
+              "completion": {
+                "state": "returned",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "UNRESOLVED",
+              "reasons": [
+                "no cancellation exception observed in operation; delivery may be deferred",
+                "cancellation request was not accepted and delivered"
+              ],
+              "valid_schedule": false,
+              "trace_complete": true,
+              "cancellation_exceptions": 0
+            }
+          ]
+        },
+        "observations": [
+          {
+            "events": [
+              "start",
+              "end",
+              "start",
+              "end"
+            ],
+            "callback_starts": [
+              "end",
+              "end"
+            ],
+            "completion": "returned",
+            "oracle_ran": true,
+            "reused": true,
+            "teardown_ran": true
+          },
+          {
+            "events": [
+              "start",
+              "end",
+              "start",
+              "end"
+            ],
+            "callback_starts": [
+              "end",
+              "end"
+            ],
+            "completion": "returned",
+            "oracle_ran": true,
+            "reused": true,
+            "teardown_ran": true
+          },
+          {
+            "events": [
+              "start",
+              "error:CancelledError",
+              "start",
+              "end"
+            ],
+            "callback_starts": [
+              "error:CancelledError",
+              "end"
+            ],
+            "completion": "scope_cancelled",
+            "oracle_ran": true,
+            "reused": true,
+            "teardown_ran": true
+          },
+          {
+            "events": [
+              "start",
+              "end",
+              "start",
+              "end"
+            ],
+            "callback_starts": [
+              "end",
+              "end"
+            ],
+            "completion": "returned",
+            "oracle_ran": true,
+            "reused": true,
+            "teardown_ran": true
+          }
+        ],
+        "replays": [
+          {
+            "repetition": 1,
+            "report": {
+              "schema_version": 2,
+              "package_version": "0.1.0",
+              "interpreter": "3.12.16",
+              "implementation": "CPython",
+              "mode": "replay",
+              "cancellation_mode": "anyio",
+              "backend": "asyncio",
+              "anyio_version": "4.15.1",
+              "outcome": "PASS",
+              "coverage": {
+                "baseline_points": 0,
+                "single_planned": 1,
+                "single_valid": 1,
+                "double_planned": 0,
+                "double_valid": 0,
+                "attempts_run": 1,
+                "complete": true,
+                "reasons": []
+              },
+              "limits": {
+                "max_points": 40,
+                "max_attempts": 45,
+                "max_depth": 1,
+                "phase_timeout": 1,
+                "total_timeout": 15,
+                "cleanup_timeout": 0.1
+              },
+              "attempts": [
+                {
+                  "schedule": {
+                    "cancel_at": [
+                      1
+                    ],
+                    "prefix": [
+                      {
+                        "index": 1,
+                        "kind": "_asyncio.Task",
+                        "stack": [
+                          {
+                            "file": "case.py",
+                            "function": "callback_case.<locals>.operation",
+                            "line": 71,
+                            "offset": 76,
+                            "code": "d9789354bebf0285"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.ainvoke",
+                            "line": 775,
+                            "offset": 82,
+                            "code": "143a89d969d41f0f"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.arun",
+                            "line": 1229,
+                            "offset": 842,
+                            "code": "410fa447be7f23fc"
+                          }
+                        ]
+                      }
+                    ],
+                    "interpreter": "CPython-3.12",
+                    "cancellation_mode": "anyio",
+                    "backend": "asyncio",
+                    "anyio_version": "4.15.1",
+                    "schema_version": 2
+                  },
+                  "trace": [
+                    {
+                      "index": 1,
+                      "kind": "_asyncio.Task",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1229,
+                          "offset": 842,
+                          "code": "410fa447be7f23fc"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 2,
+                      "kind": "bare_yield",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1262,
+                          "offset": 1050,
+                          "code": "410fa447be7f23fc"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                          "line": 1223,
+                          "offset": 156,
+                          "code": "76f7da780acb5e2c"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "ahandle_event",
+                          "line": 459,
+                          "offset": 118,
+                          "code": "6af0a29d346d3841"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "_ahandle_event_for_handler",
+                          "line": 402,
+                          "offset": 124,
+                          "code": "b5fdfd5a9592b24c"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.on_tool_error",
+                          "line": 44,
+                          "offset": 90,
+                          "code": "2373605140b73020"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.terminal",
+                          "line": 37,
+                          "offset": 180,
+                          "code": "7847b47524e839b8"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "sleep",
+                          "line": 656,
+                          "offset": 42,
+                          "code": "d48c0b1de9d335df"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "__sleep0",
+                          "line": 650,
+                          "offset": 8,
+                          "code": "862fd28aee794214"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancellations": [
+                    {
+                      "point": 1,
+                      "accepted": true,
+                      "delivered": true,
+                      "target_reached": true,
+                      "prefix_matched": true,
+                      "scope_cancel_called": true,
+                      "exception_observed": true,
+                      "scope_cancelled_caught": true,
+                      "delivery_unknown_reason": null
+                    }
+                  ],
+                  "completion": {
+                    "state": "scope_cancelled",
+                    "exception_type": null
+                  },
+                  "setup": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "oracle": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "teardown": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "outcome": "PASS",
+                  "reasons": [],
+                  "valid_schedule": true,
+                  "trace_complete": true,
+                  "cancellation_exceptions": 1
+                }
+              ]
+            },
+            "observations": [
+              {
+                "events": [
+                  "start",
+                  "error:CancelledError",
+                  "start",
+                  "end"
+                ],
+                "callback_starts": [
+                  "error:CancelledError",
+                  "end"
+                ],
+                "completion": "scope_cancelled",
+                "oracle_ran": true,
+                "reused": true,
+                "teardown_ran": true
+              }
+            ],
+            "contract_matched": true
+          },
+          {
+            "repetition": 2,
+            "report": {
+              "schema_version": 2,
+              "package_version": "0.1.0",
+              "interpreter": "3.12.16",
+              "implementation": "CPython",
+              "mode": "replay",
+              "cancellation_mode": "anyio",
+              "backend": "asyncio",
+              "anyio_version": "4.15.1",
+              "outcome": "PASS",
+              "coverage": {
+                "baseline_points": 0,
+                "single_planned": 1,
+                "single_valid": 1,
+                "double_planned": 0,
+                "double_valid": 0,
+                "attempts_run": 1,
+                "complete": true,
+                "reasons": []
+              },
+              "limits": {
+                "max_points": 40,
+                "max_attempts": 45,
+                "max_depth": 1,
+                "phase_timeout": 1,
+                "total_timeout": 15,
+                "cleanup_timeout": 0.1
+              },
+              "attempts": [
+                {
+                  "schedule": {
+                    "cancel_at": [
+                      1
+                    ],
+                    "prefix": [
+                      {
+                        "index": 1,
+                        "kind": "_asyncio.Task",
+                        "stack": [
+                          {
+                            "file": "case.py",
+                            "function": "callback_case.<locals>.operation",
+                            "line": 71,
+                            "offset": 76,
+                            "code": "d9789354bebf0285"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.ainvoke",
+                            "line": 775,
+                            "offset": 82,
+                            "code": "143a89d969d41f0f"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.arun",
+                            "line": 1229,
+                            "offset": 842,
+                            "code": "410fa447be7f23fc"
+                          }
+                        ]
+                      }
+                    ],
+                    "interpreter": "CPython-3.12",
+                    "cancellation_mode": "anyio",
+                    "backend": "asyncio",
+                    "anyio_version": "4.15.1",
+                    "schema_version": 2
+                  },
+                  "trace": [
+                    {
+                      "index": 1,
+                      "kind": "_asyncio.Task",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1229,
+                          "offset": 842,
+                          "code": "410fa447be7f23fc"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 2,
+                      "kind": "bare_yield",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1262,
+                          "offset": 1050,
+                          "code": "410fa447be7f23fc"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                          "line": 1223,
+                          "offset": 156,
+                          "code": "76f7da780acb5e2c"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "ahandle_event",
+                          "line": 459,
+                          "offset": 118,
+                          "code": "6af0a29d346d3841"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "_ahandle_event_for_handler",
+                          "line": 402,
+                          "offset": 124,
+                          "code": "b5fdfd5a9592b24c"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.on_tool_error",
+                          "line": 44,
+                          "offset": 90,
+                          "code": "2373605140b73020"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.terminal",
+                          "line": 37,
+                          "offset": 180,
+                          "code": "7847b47524e839b8"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "sleep",
+                          "line": 656,
+                          "offset": 42,
+                          "code": "d48c0b1de9d335df"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "__sleep0",
+                          "line": 650,
+                          "offset": 8,
+                          "code": "862fd28aee794214"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancellations": [
+                    {
+                      "point": 1,
+                      "accepted": true,
+                      "delivered": true,
+                      "target_reached": true,
+                      "prefix_matched": true,
+                      "scope_cancel_called": true,
+                      "exception_observed": true,
+                      "scope_cancelled_caught": true,
+                      "delivery_unknown_reason": null
+                    }
+                  ],
+                  "completion": {
+                    "state": "scope_cancelled",
+                    "exception_type": null
+                  },
+                  "setup": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "oracle": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "teardown": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "outcome": "PASS",
+                  "reasons": [],
+                  "valid_schedule": true,
+                  "trace_complete": true,
+                  "cancellation_exceptions": 1
+                }
+              ]
+            },
+            "observations": [
+              {
+                "events": [
+                  "start",
+                  "error:CancelledError",
+                  "start",
+                  "end"
+                ],
+                "callback_starts": [
+                  "error:CancelledError",
+                  "end"
+                ],
+                "completion": "scope_cancelled",
+                "oracle_ran": true,
+                "reused": true,
+                "teardown_ran": true
+              }
+            ],
+            "contract_matched": true
+          },
+          {
+            "repetition": 3,
+            "report": {
+              "schema_version": 2,
+              "package_version": "0.1.0",
+              "interpreter": "3.12.16",
+              "implementation": "CPython",
+              "mode": "replay",
+              "cancellation_mode": "anyio",
+              "backend": "asyncio",
+              "anyio_version": "4.15.1",
+              "outcome": "PASS",
+              "coverage": {
+                "baseline_points": 0,
+                "single_planned": 1,
+                "single_valid": 1,
+                "double_planned": 0,
+                "double_valid": 0,
+                "attempts_run": 1,
+                "complete": true,
+                "reasons": []
+              },
+              "limits": {
+                "max_points": 40,
+                "max_attempts": 45,
+                "max_depth": 1,
+                "phase_timeout": 1,
+                "total_timeout": 15,
+                "cleanup_timeout": 0.1
+              },
+              "attempts": [
+                {
+                  "schedule": {
+                    "cancel_at": [
+                      1
+                    ],
+                    "prefix": [
+                      {
+                        "index": 1,
+                        "kind": "_asyncio.Task",
+                        "stack": [
+                          {
+                            "file": "case.py",
+                            "function": "callback_case.<locals>.operation",
+                            "line": 71,
+                            "offset": 76,
+                            "code": "d9789354bebf0285"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.ainvoke",
+                            "line": 775,
+                            "offset": 82,
+                            "code": "143a89d969d41f0f"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.arun",
+                            "line": 1229,
+                            "offset": 842,
+                            "code": "410fa447be7f23fc"
+                          }
+                        ]
+                      }
+                    ],
+                    "interpreter": "CPython-3.12",
+                    "cancellation_mode": "anyio",
+                    "backend": "asyncio",
+                    "anyio_version": "4.15.1",
+                    "schema_version": 2
+                  },
+                  "trace": [
+                    {
+                      "index": 1,
+                      "kind": "_asyncio.Task",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1229,
+                          "offset": 842,
+                          "code": "410fa447be7f23fc"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 2,
+                      "kind": "bare_yield",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1262,
+                          "offset": 1050,
+                          "code": "410fa447be7f23fc"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                          "line": 1223,
+                          "offset": 156,
+                          "code": "76f7da780acb5e2c"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "ahandle_event",
+                          "line": 459,
+                          "offset": 118,
+                          "code": "6af0a29d346d3841"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "_ahandle_event_for_handler",
+                          "line": 402,
+                          "offset": 124,
+                          "code": "b5fdfd5a9592b24c"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.on_tool_error",
+                          "line": 44,
+                          "offset": 90,
+                          "code": "2373605140b73020"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.terminal",
+                          "line": 37,
+                          "offset": 180,
+                          "code": "7847b47524e839b8"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "sleep",
+                          "line": 656,
+                          "offset": 42,
+                          "code": "d48c0b1de9d335df"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "__sleep0",
+                          "line": 650,
+                          "offset": 8,
+                          "code": "862fd28aee794214"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancellations": [
+                    {
+                      "point": 1,
+                      "accepted": true,
+                      "delivered": true,
+                      "target_reached": true,
+                      "prefix_matched": true,
+                      "scope_cancel_called": true,
+                      "exception_observed": true,
+                      "scope_cancelled_caught": true,
+                      "delivery_unknown_reason": null
+                    }
+                  ],
+                  "completion": {
+                    "state": "scope_cancelled",
+                    "exception_type": null
+                  },
+                  "setup": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "oracle": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "teardown": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "outcome": "PASS",
+                  "reasons": [],
+                  "valid_schedule": true,
+                  "trace_complete": true,
+                  "cancellation_exceptions": 1
+                }
+              ]
+            },
+            "observations": [
+              {
+                "events": [
+                  "start",
+                  "error:CancelledError",
+                  "start",
+                  "end"
+                ],
+                "callback_starts": [
+                  "error:CancelledError",
+                  "end"
+                ],
+                "completion": "scope_cancelled",
+                "oracle_ran": true,
+                "reused": true,
+                "teardown_ran": true
+              }
+            ],
+            "contract_matched": true
+          }
+        ],
+        "selected_schedule": {
+          "cancel_at": [
+            1
+          ],
+          "prefix": [
+            {
+              "index": 1,
+              "kind": "_asyncio.Task",
+              "stack": [
+                {
+                  "file": "case.py",
+                  "function": "callback_case.<locals>.operation",
+                  "line": 71,
+                  "offset": 76,
+                  "code": "d9789354bebf0285"
+                },
+                {
+                  "file": "base.py",
+                  "function": "BaseTool.ainvoke",
+                  "line": 775,
+                  "offset": 82,
+                  "code": "143a89d969d41f0f"
+                },
+                {
+                  "file": "base.py",
+                  "function": "BaseTool.arun",
+                  "line": 1229,
+                  "offset": 842,
+                  "code": "410fa447be7f23fc"
+                }
+              ]
+            }
+          ],
+          "interpreter": "CPython-3.12",
+          "cancellation_mode": "anyio",
+          "backend": "asyncio",
+          "anyio_version": "4.15.1",
+          "schema_version": 2
+        },
+        "selected_upstream_path": [
+          "callback_case.<locals>.operation",
+          "BaseTool.ainvoke",
+          "BaseTool.arun"
+        ]
+      },
+      "asyncio_unshielded": {
+        "sweep": {
+          "schema_version": 2,
+          "package_version": "0.1.0",
+          "interpreter": "3.12.16",
+          "implementation": "CPython",
+          "mode": "sweep",
+          "cancellation_mode": "asyncio",
+          "backend": "asyncio",
+          "anyio_version": null,
+          "outcome": "FAIL",
+          "coverage": {
+            "baseline_points": 2,
+            "single_planned": 2,
+            "single_valid": 2,
+            "double_planned": 0,
+            "double_valid": 0,
+            "attempts_run": 4,
+            "complete": true,
+            "reasons": []
+          },
+          "limits": {
+            "max_points": 40,
+            "max_attempts": 45,
+            "max_depth": 1,
+            "phase_timeout": 1,
+            "total_timeout": 15,
+            "cleanup_timeout": 0.1
+          },
+          "attempts": [
+            {
+              "schedule": {
+                "cancel_at": [],
+                "prefix": [],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "asyncio",
+                "backend": "asyncio",
+                "anyio_version": null,
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1266,
+                      "offset": 1184,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                      "line": 1198,
+                      "offset": 156,
+                      "code": "51eb5035a1895540"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_end",
+                      "line": 47,
+                      "offset": 46,
+                      "code": "0821302bdc1c57ea"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 40,
+                      "offset": 310,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [],
+              "completion": {
+                "state": "returned",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "PASS",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 0
+            },
+            {
+              "schedule": {
+                "cancel_at": [],
+                "prefix": [],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "asyncio",
+                "backend": "asyncio",
+                "anyio_version": null,
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1266,
+                      "offset": 1184,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                      "line": 1198,
+                      "offset": 156,
+                      "code": "51eb5035a1895540"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_end",
+                      "line": 47,
+                      "offset": 46,
+                      "code": "0821302bdc1c57ea"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 40,
+                      "offset": 310,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [],
+              "completion": {
+                "state": "returned",
+                "exception_type": null
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "PASS",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 0
+            },
+            {
+              "schedule": {
+                "cancel_at": [
+                  1
+                ],
+                "prefix": [
+                  {
+                    "index": 1,
+                    "kind": "_asyncio.Task",
+                    "stack": [
+                      {
+                        "file": "case.py",
+                        "function": "callback_case.<locals>.operation",
+                        "line": 71,
+                        "offset": 76,
+                        "code": "d9789354bebf0285"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.ainvoke",
+                        "line": 775,
+                        "offset": 82,
+                        "code": "143a89d969d41f0f"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.arun",
+                        "line": 1229,
+                        "offset": 842,
+                        "code": "410fa447be7f23fc"
+                      }
+                    ]
+                  }
+                ],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "asyncio",
+                "backend": "asyncio",
+                "anyio_version": null,
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1262,
+                      "offset": 1050,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                      "line": 1223,
+                      "offset": 156,
+                      "code": "76f7da780acb5e2c"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_error",
+                      "line": 44,
+                      "offset": 90,
+                      "code": "2373605140b73020"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 40,
+                      "offset": 310,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [
+                {
+                  "point": 1,
+                  "accepted": true,
+                  "delivered": true,
+                  "target_reached": true,
+                  "prefix_matched": true,
+                  "scope_cancel_called": null,
+                  "exception_observed": true,
+                  "scope_cancelled_caught": null,
+                  "delivery_unknown_reason": null
+                }
+              ],
+              "completion": {
+                "state": "cancelled",
+                "exception_type": "CancelledError"
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "PASS",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 1
+            },
+            {
+              "schedule": {
+                "cancel_at": [
+                  2
+                ],
+                "prefix": [
+                  {
+                    "index": 1,
+                    "kind": "_asyncio.Task",
+                    "stack": [
+                      {
+                        "file": "case.py",
+                        "function": "callback_case.<locals>.operation",
+                        "line": 71,
+                        "offset": 76,
+                        "code": "d9789354bebf0285"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.ainvoke",
+                        "line": 775,
+                        "offset": 82,
+                        "code": "143a89d969d41f0f"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.arun",
+                        "line": 1229,
+                        "offset": 842,
+                        "code": "410fa447be7f23fc"
+                      }
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "kind": "bare_yield",
+                    "stack": [
+                      {
+                        "file": "case.py",
+                        "function": "callback_case.<locals>.operation",
+                        "line": 71,
+                        "offset": 76,
+                        "code": "d9789354bebf0285"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.ainvoke",
+                        "line": 775,
+                        "offset": 82,
+                        "code": "143a89d969d41f0f"
+                      },
+                      {
+                        "file": "base.py",
+                        "function": "BaseTool.arun",
+                        "line": 1266,
+                        "offset": 1184,
+                        "code": "410fa447be7f23fc"
+                      },
+                      {
+                        "file": "manager.py",
+                        "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                        "line": 1198,
+                        "offset": 156,
+                        "code": "51eb5035a1895540"
+                      },
+                      {
+                        "file": "manager.py",
+                        "function": "ahandle_event",
+                        "line": 459,
+                        "offset": 118,
+                        "code": "6af0a29d346d3841"
+                      },
+                      {
+                        "file": "manager.py",
+                        "function": "_ahandle_event_for_handler",
+                        "line": 402,
+                        "offset": 124,
+                        "code": "b5fdfd5a9592b24c"
+                      },
+                      {
+                        "file": "case.py",
+                        "function": "Recorder.on_tool_end",
+                        "line": 47,
+                        "offset": 46,
+                        "code": "0821302bdc1c57ea"
+                      },
+                      {
+                        "file": "case.py",
+                        "function": "Recorder.terminal",
+                        "line": 40,
+                        "offset": 310,
+                        "code": "7847b47524e839b8"
+                      },
+                      {
+                        "file": "tasks.py",
+                        "function": "sleep",
+                        "line": 656,
+                        "offset": 42,
+                        "code": "d48c0b1de9d335df"
+                      },
+                      {
+                        "file": "tasks.py",
+                        "function": "__sleep0",
+                        "line": 650,
+                        "offset": 8,
+                        "code": "862fd28aee794214"
+                      }
+                    ]
+                  }
+                ],
+                "interpreter": "CPython-3.12",
+                "cancellation_mode": "asyncio",
+                "backend": "asyncio",
+                "anyio_version": null,
+                "schema_version": 2
+              },
+              "trace": [
+                {
+                  "index": 1,
+                  "kind": "_asyncio.Task",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1229,
+                      "offset": 842,
+                      "code": "410fa447be7f23fc"
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "kind": "bare_yield",
+                  "stack": [
+                    {
+                      "file": "case.py",
+                      "function": "callback_case.<locals>.operation",
+                      "line": 71,
+                      "offset": 76,
+                      "code": "d9789354bebf0285"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.ainvoke",
+                      "line": 775,
+                      "offset": 82,
+                      "code": "143a89d969d41f0f"
+                    },
+                    {
+                      "file": "base.py",
+                      "function": "BaseTool.arun",
+                      "line": 1266,
+                      "offset": 1184,
+                      "code": "410fa447be7f23fc"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "AsyncCallbackManagerForToolRun.on_tool_end",
+                      "line": 1198,
+                      "offset": 156,
+                      "code": "51eb5035a1895540"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "ahandle_event",
+                      "line": 459,
+                      "offset": 118,
+                      "code": "6af0a29d346d3841"
+                    },
+                    {
+                      "file": "manager.py",
+                      "function": "_ahandle_event_for_handler",
+                      "line": 402,
+                      "offset": 124,
+                      "code": "b5fdfd5a9592b24c"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.on_tool_end",
+                      "line": 47,
+                      "offset": 46,
+                      "code": "0821302bdc1c57ea"
+                    },
+                    {
+                      "file": "case.py",
+                      "function": "Recorder.terminal",
+                      "line": 40,
+                      "offset": 310,
+                      "code": "7847b47524e839b8"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "sleep",
+                      "line": 656,
+                      "offset": 42,
+                      "code": "d48c0b1de9d335df"
+                    },
+                    {
+                      "file": "tasks.py",
+                      "function": "__sleep0",
+                      "line": 650,
+                      "offset": 8,
+                      "code": "862fd28aee794214"
+                    }
+                  ]
+                }
+              ],
+              "cancellations": [
+                {
+                  "point": 2,
+                  "accepted": true,
+                  "delivered": true,
+                  "target_reached": true,
+                  "prefix_matched": true,
+                  "scope_cancel_called": null,
+                  "exception_observed": true,
+                  "scope_cancelled_caught": null,
+                  "delivery_unknown_reason": null
+                }
+              ],
+              "completion": {
+                "state": "cancelled",
+                "exception_type": "CancelledError"
+              },
+              "setup": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "oracle": {
+                "outcome": "FAIL",
+                "detail": "started tool run records exactly one terminal event"
+              },
+              "teardown": {
+                "outcome": "PASS",
+                "detail": null
+              },
+              "outcome": "FAIL",
+              "reasons": [],
+              "valid_schedule": true,
+              "trace_complete": true,
+              "cancellation_exceptions": 1
+            }
+          ]
+        },
+        "observations": [
+          {
+            "events": [
+              "start",
+              "end",
+              "start",
+              "end"
+            ],
+            "callback_starts": [
+              "end",
+              "end"
+            ],
+            "completion": "returned",
+            "oracle_ran": true,
+            "reused": true,
+            "teardown_ran": true
+          },
+          {
+            "events": [
+              "start",
+              "end",
+              "start",
+              "end"
+            ],
+            "callback_starts": [
+              "end",
+              "end"
+            ],
+            "completion": "returned",
+            "oracle_ran": true,
+            "reused": true,
+            "teardown_ran": true
+          },
+          {
+            "events": [
+              "start",
+              "error:CancelledError",
+              "start",
+              "end"
+            ],
+            "callback_starts": [
+              "error:CancelledError",
+              "end"
+            ],
+            "completion": "cancelled",
+            "oracle_ran": true,
+            "reused": true,
+            "teardown_ran": true
+          },
+          {
+            "events": [
+              "start"
+            ],
+            "callback_starts": [
+              "end"
+            ],
+            "completion": "cancelled",
+            "oracle_ran": true,
+            "teardown_ran": true
+          }
+        ],
+        "replays": [
+          {
+            "repetition": 1,
+            "report": {
+              "schema_version": 2,
+              "package_version": "0.1.0",
+              "interpreter": "3.12.16",
+              "implementation": "CPython",
+              "mode": "replay",
+              "cancellation_mode": "asyncio",
+              "backend": "asyncio",
+              "anyio_version": null,
+              "outcome": "PASS",
+              "coverage": {
+                "baseline_points": 0,
+                "single_planned": 1,
+                "single_valid": 1,
+                "double_planned": 0,
+                "double_valid": 0,
+                "attempts_run": 1,
+                "complete": true,
+                "reasons": []
+              },
+              "limits": {
+                "max_points": 40,
+                "max_attempts": 45,
+                "max_depth": 1,
+                "phase_timeout": 1,
+                "total_timeout": 15,
+                "cleanup_timeout": 0.1
+              },
+              "attempts": [
+                {
+                  "schedule": {
+                    "cancel_at": [
+                      1
+                    ],
+                    "prefix": [
+                      {
+                        "index": 1,
+                        "kind": "_asyncio.Task",
+                        "stack": [
+                          {
+                            "file": "case.py",
+                            "function": "callback_case.<locals>.operation",
+                            "line": 71,
+                            "offset": 76,
+                            "code": "d9789354bebf0285"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.ainvoke",
+                            "line": 775,
+                            "offset": 82,
+                            "code": "143a89d969d41f0f"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.arun",
+                            "line": 1229,
+                            "offset": 842,
+                            "code": "410fa447be7f23fc"
+                          }
+                        ]
+                      }
+                    ],
+                    "interpreter": "CPython-3.12",
+                    "cancellation_mode": "asyncio",
+                    "backend": "asyncio",
+                    "anyio_version": null,
+                    "schema_version": 2
+                  },
+                  "trace": [
+                    {
+                      "index": 1,
+                      "kind": "_asyncio.Task",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1229,
+                          "offset": 842,
+                          "code": "410fa447be7f23fc"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 2,
+                      "kind": "bare_yield",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1262,
+                          "offset": 1050,
+                          "code": "410fa447be7f23fc"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                          "line": 1223,
+                          "offset": 156,
+                          "code": "76f7da780acb5e2c"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "ahandle_event",
+                          "line": 459,
+                          "offset": 118,
+                          "code": "6af0a29d346d3841"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "_ahandle_event_for_handler",
+                          "line": 402,
+                          "offset": 124,
+                          "code": "b5fdfd5a9592b24c"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.on_tool_error",
+                          "line": 44,
+                          "offset": 90,
+                          "code": "2373605140b73020"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.terminal",
+                          "line": 40,
+                          "offset": 310,
+                          "code": "7847b47524e839b8"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "sleep",
+                          "line": 656,
+                          "offset": 42,
+                          "code": "d48c0b1de9d335df"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "__sleep0",
+                          "line": 650,
+                          "offset": 8,
+                          "code": "862fd28aee794214"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancellations": [
+                    {
+                      "point": 1,
+                      "accepted": true,
+                      "delivered": true,
+                      "target_reached": true,
+                      "prefix_matched": true,
+                      "scope_cancel_called": null,
+                      "exception_observed": true,
+                      "scope_cancelled_caught": null,
+                      "delivery_unknown_reason": null
+                    }
+                  ],
+                  "completion": {
+                    "state": "cancelled",
+                    "exception_type": "CancelledError"
+                  },
+                  "setup": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "oracle": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "teardown": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "outcome": "PASS",
+                  "reasons": [],
+                  "valid_schedule": true,
+                  "trace_complete": true,
+                  "cancellation_exceptions": 1
+                }
+              ]
+            },
+            "observations": [
+              {
+                "events": [
+                  "start",
+                  "error:CancelledError",
+                  "start",
+                  "end"
+                ],
+                "callback_starts": [
+                  "error:CancelledError",
+                  "end"
+                ],
+                "completion": "cancelled",
+                "oracle_ran": true,
+                "reused": true,
+                "teardown_ran": true
+              }
+            ],
+            "contract_matched": true
+          },
+          {
+            "repetition": 2,
+            "report": {
+              "schema_version": 2,
+              "package_version": "0.1.0",
+              "interpreter": "3.12.16",
+              "implementation": "CPython",
+              "mode": "replay",
+              "cancellation_mode": "asyncio",
+              "backend": "asyncio",
+              "anyio_version": null,
+              "outcome": "PASS",
+              "coverage": {
+                "baseline_points": 0,
+                "single_planned": 1,
+                "single_valid": 1,
+                "double_planned": 0,
+                "double_valid": 0,
+                "attempts_run": 1,
+                "complete": true,
+                "reasons": []
+              },
+              "limits": {
+                "max_points": 40,
+                "max_attempts": 45,
+                "max_depth": 1,
+                "phase_timeout": 1,
+                "total_timeout": 15,
+                "cleanup_timeout": 0.1
+              },
+              "attempts": [
+                {
+                  "schedule": {
+                    "cancel_at": [
+                      1
+                    ],
+                    "prefix": [
+                      {
+                        "index": 1,
+                        "kind": "_asyncio.Task",
+                        "stack": [
+                          {
+                            "file": "case.py",
+                            "function": "callback_case.<locals>.operation",
+                            "line": 71,
+                            "offset": 76,
+                            "code": "d9789354bebf0285"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.ainvoke",
+                            "line": 775,
+                            "offset": 82,
+                            "code": "143a89d969d41f0f"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.arun",
+                            "line": 1229,
+                            "offset": 842,
+                            "code": "410fa447be7f23fc"
+                          }
+                        ]
+                      }
+                    ],
+                    "interpreter": "CPython-3.12",
+                    "cancellation_mode": "asyncio",
+                    "backend": "asyncio",
+                    "anyio_version": null,
+                    "schema_version": 2
+                  },
+                  "trace": [
+                    {
+                      "index": 1,
+                      "kind": "_asyncio.Task",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1229,
+                          "offset": 842,
+                          "code": "410fa447be7f23fc"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 2,
+                      "kind": "bare_yield",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1262,
+                          "offset": 1050,
+                          "code": "410fa447be7f23fc"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                          "line": 1223,
+                          "offset": 156,
+                          "code": "76f7da780acb5e2c"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "ahandle_event",
+                          "line": 459,
+                          "offset": 118,
+                          "code": "6af0a29d346d3841"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "_ahandle_event_for_handler",
+                          "line": 402,
+                          "offset": 124,
+                          "code": "b5fdfd5a9592b24c"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.on_tool_error",
+                          "line": 44,
+                          "offset": 90,
+                          "code": "2373605140b73020"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.terminal",
+                          "line": 40,
+                          "offset": 310,
+                          "code": "7847b47524e839b8"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "sleep",
+                          "line": 656,
+                          "offset": 42,
+                          "code": "d48c0b1de9d335df"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "__sleep0",
+                          "line": 650,
+                          "offset": 8,
+                          "code": "862fd28aee794214"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancellations": [
+                    {
+                      "point": 1,
+                      "accepted": true,
+                      "delivered": true,
+                      "target_reached": true,
+                      "prefix_matched": true,
+                      "scope_cancel_called": null,
+                      "exception_observed": true,
+                      "scope_cancelled_caught": null,
+                      "delivery_unknown_reason": null
+                    }
+                  ],
+                  "completion": {
+                    "state": "cancelled",
+                    "exception_type": "CancelledError"
+                  },
+                  "setup": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "oracle": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "teardown": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "outcome": "PASS",
+                  "reasons": [],
+                  "valid_schedule": true,
+                  "trace_complete": true,
+                  "cancellation_exceptions": 1
+                }
+              ]
+            },
+            "observations": [
+              {
+                "events": [
+                  "start",
+                  "error:CancelledError",
+                  "start",
+                  "end"
+                ],
+                "callback_starts": [
+                  "error:CancelledError",
+                  "end"
+                ],
+                "completion": "cancelled",
+                "oracle_ran": true,
+                "reused": true,
+                "teardown_ran": true
+              }
+            ],
+            "contract_matched": true
+          },
+          {
+            "repetition": 3,
+            "report": {
+              "schema_version": 2,
+              "package_version": "0.1.0",
+              "interpreter": "3.12.16",
+              "implementation": "CPython",
+              "mode": "replay",
+              "cancellation_mode": "asyncio",
+              "backend": "asyncio",
+              "anyio_version": null,
+              "outcome": "PASS",
+              "coverage": {
+                "baseline_points": 0,
+                "single_planned": 1,
+                "single_valid": 1,
+                "double_planned": 0,
+                "double_valid": 0,
+                "attempts_run": 1,
+                "complete": true,
+                "reasons": []
+              },
+              "limits": {
+                "max_points": 40,
+                "max_attempts": 45,
+                "max_depth": 1,
+                "phase_timeout": 1,
+                "total_timeout": 15,
+                "cleanup_timeout": 0.1
+              },
+              "attempts": [
+                {
+                  "schedule": {
+                    "cancel_at": [
+                      1
+                    ],
+                    "prefix": [
+                      {
+                        "index": 1,
+                        "kind": "_asyncio.Task",
+                        "stack": [
+                          {
+                            "file": "case.py",
+                            "function": "callback_case.<locals>.operation",
+                            "line": 71,
+                            "offset": 76,
+                            "code": "d9789354bebf0285"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.ainvoke",
+                            "line": 775,
+                            "offset": 82,
+                            "code": "143a89d969d41f0f"
+                          },
+                          {
+                            "file": "base.py",
+                            "function": "BaseTool.arun",
+                            "line": 1229,
+                            "offset": 842,
+                            "code": "410fa447be7f23fc"
+                          }
+                        ]
+                      }
+                    ],
+                    "interpreter": "CPython-3.12",
+                    "cancellation_mode": "asyncio",
+                    "backend": "asyncio",
+                    "anyio_version": null,
+                    "schema_version": 2
+                  },
+                  "trace": [
+                    {
+                      "index": 1,
+                      "kind": "_asyncio.Task",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1229,
+                          "offset": 842,
+                          "code": "410fa447be7f23fc"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 2,
+                      "kind": "bare_yield",
+                      "stack": [
+                        {
+                          "file": "case.py",
+                          "function": "callback_case.<locals>.operation",
+                          "line": 71,
+                          "offset": 76,
+                          "code": "d9789354bebf0285"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.ainvoke",
+                          "line": 775,
+                          "offset": 82,
+                          "code": "143a89d969d41f0f"
+                        },
+                        {
+                          "file": "base.py",
+                          "function": "BaseTool.arun",
+                          "line": 1262,
+                          "offset": 1050,
+                          "code": "410fa447be7f23fc"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "AsyncCallbackManagerForToolRun.on_tool_error",
+                          "line": 1223,
+                          "offset": 156,
+                          "code": "76f7da780acb5e2c"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "ahandle_event",
+                          "line": 459,
+                          "offset": 118,
+                          "code": "6af0a29d346d3841"
+                        },
+                        {
+                          "file": "manager.py",
+                          "function": "_ahandle_event_for_handler",
+                          "line": 402,
+                          "offset": 124,
+                          "code": "b5fdfd5a9592b24c"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.on_tool_error",
+                          "line": 44,
+                          "offset": 90,
+                          "code": "2373605140b73020"
+                        },
+                        {
+                          "file": "case.py",
+                          "function": "Recorder.terminal",
+                          "line": 40,
+                          "offset": 310,
+                          "code": "7847b47524e839b8"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "sleep",
+                          "line": 656,
+                          "offset": 42,
+                          "code": "d48c0b1de9d335df"
+                        },
+                        {
+                          "file": "tasks.py",
+                          "function": "__sleep0",
+                          "line": 650,
+                          "offset": 8,
+                          "code": "862fd28aee794214"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancellations": [
+                    {
+                      "point": 1,
+                      "accepted": true,
+                      "delivered": true,
+                      "target_reached": true,
+                      "prefix_matched": true,
+                      "scope_cancel_called": null,
+                      "exception_observed": true,
+                      "scope_cancelled_caught": null,
+                      "delivery_unknown_reason": null
+                    }
+                  ],
+                  "completion": {
+                    "state": "cancelled",
+                    "exception_type": "CancelledError"
+                  },
+                  "setup": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "oracle": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "teardown": {
+                    "outcome": "PASS",
+                    "detail": null
+                  },
+                  "outcome": "PASS",
+                  "reasons": [],
+                  "valid_schedule": true,
+                  "trace_complete": true,
+                  "cancellation_exceptions": 1
+                }
+              ]
+            },
+            "observations": [
+              {
+                "events": [
+                  "start",
+                  "error:CancelledError",
+                  "start",
+                  "end"
+                ],
+                "callback_starts": [
+                  "error:CancelledError",
+                  "end"
+                ],
+                "completion": "cancelled",
+                "oracle_ran": true,
+                "reused": true,
+                "teardown_ran": true
+              }
+            ],
+            "contract_matched": true
+          }
+        ],
+        "selected_schedule": {
+          "cancel_at": [
+            1
+          ],
+          "prefix": [
+            {
+              "index": 1,
+              "kind": "_asyncio.Task",
+              "stack": [
+                {
+                  "file": "case.py",
+                  "function": "callback_case.<locals>.operation",
+                  "line": 71,
+                  "offset": 76,
+                  "code": "d9789354bebf0285"
+                },
+                {
+                  "file": "base.py",
+                  "function": "BaseTool.ainvoke",
+                  "line": 775,
+                  "offset": 82,
+                  "code": "143a89d969d41f0f"
+                },
+                {
+                  "file": "base.py",
+                  "function": "BaseTool.arun",
+                  "line": 1229,
+                  "offset": 842,
+                  "code": "410fa447be7f23fc"
+                }
+              ]
+            }
+          ],
+          "interpreter": "CPython-3.12",
+          "cancellation_mode": "asyncio",
+          "backend": "asyncio",
+          "anyio_version": null,
+          "schema_version": 2
+        },
+        "selected_upstream_path": [
+          "callback_case.<locals>.operation",
+          "BaseTool.ainvoke",
+          "BaseTool.arun"
+        ]
+      }
+    },
+    "errors": [],
+    "pending_tasks_before_loop_shutdown": []
+  },
+  "runtime_versions_match_pins": true,
+  "upstream_modules_unchanged": true,
+  "cancellens_modules_match_wheel": true,
+  "import_outside_checkout": true
+}

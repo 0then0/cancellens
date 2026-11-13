@@ -73,6 +73,8 @@ class Observer:
         self.mismatch = False
         self.pending: list[tuple[object, Cancellation]] = []
         self.handles: list[asyncio.Handle] = []
+        self.scope: Any = None
+        self.scope_error: Exception | None = None
 
     def point(self, coro: Coroutine[Any, Any, Any], yielded: object) -> None:
         if not self.active:
@@ -91,7 +93,13 @@ class Observer:
             self.attempt.reasons.append(
                 f"trace diverged at point {self.count}; cancellation withheld"
             )
-        if self.mismatch or self.count not in schedule.cancel_at:
+        if self.count not in schedule.cancel_at:
+            return
+        if self.mismatch:
+            if schedule.cancellation_mode == "anyio":
+                self.attempt.cancellations.append(
+                    Cancellation(self.count, prefix_matched=False, delivered=None)
+                )
             return
         if self.pending and not self.pending[-1][1].delivered:
             self.attempt.reasons.append(
@@ -101,13 +109,23 @@ class Observer:
         task = asyncio.current_task()
         if task is None:
             raise InstrumentationError("observation requires an asyncio Task")
-        record = Cancellation(self.count)
+        record = Cancellation(
+            self.count, delivered=None if schedule.cancellation_mode == "anyio" else False
+        )
         token = object()
         self.pending.append((token, record))
         self.attempt.cancellations.append(record)
 
         def cancel() -> None:
-            record.accepted = task.cancel(token)
+            if schedule.cancellation_mode == "anyio":
+                try:
+                    self.scope.cancel()
+                    record.scope_cancel_called = self.scope.cancel_called
+                    record.accepted = record.scope_cancel_called
+                except Exception as exc:
+                    self.scope_error = exc
+            else:
+                record.accepted = task.cancel(token)
 
         # Task first registers the original yielded waiter. This callback then requests
         # cancellation before the resumption callback of a bare yield can run.
@@ -117,16 +135,57 @@ class Observer:
         if not self.active:
             return
         if isinstance(error, asyncio.CancelledError):
+            self.attempt.cancellation_exceptions += 1
+            if self.attempt.schedule.cancellation_mode == "anyio":
+                for _, record in self.pending:
+                    record.exception_observed = True
+                return
             matched = False
             for token, record in self.pending:
                 if error.args and error.args[0] is token:
                     record.delivered = True
+                    record.exception_observed = True
                     matched = True
             if self.pending and not matched:
                 self.attempt.reasons.append(
                     "CancelledError reached caller without matching request token; "
                     "delivery attribution is ambiguous"
                 )
+
+    def scope_exited(self) -> None:
+        # Snapshot only public facts. AnyIO's messages and private cancellation
+        # bookkeeping cannot establish stable request attribution.
+        if not self.active:
+            return
+        for _, record in self.pending:
+            record.scope_cancel_called = self.scope.cancel_called
+            record.scope_cancelled_caught = self.scope.cancelled_caught
+            if (
+                record.scope_cancel_called
+                and record.scope_cancelled_caught
+                and record.exception_observed
+            ):
+                record.delivered = True
+
+    def assess_scope_delivery(self) -> None:
+        for record in self.attempt.cancellations:
+            if record.delivered:
+                continue
+            if not record.target_reached:
+                reason = "requested cancellation target was not reached"
+            elif not record.prefix_matched:
+                reason = "trace prefix did not match; scope cancellation withheld"
+            elif not record.scope_cancel_called:
+                reason = "harness scope cancellation was not confirmed"
+            elif not record.exception_observed:
+                reason = "no cancellation exception observed in operation; delivery may be deferred"
+            else:
+                reason = (
+                    "cancellation exception observed but harness scope did not suppress it; "
+                    "delivery attribution is unknown"
+                )
+            record.delivery_unknown_reason = reason
+            self.attempt.reasons.append(reason)
 
     def close(self) -> None:
         self.active = False

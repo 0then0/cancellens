@@ -15,7 +15,8 @@ uv run --no-sync python validation/watchdog.py --timeout 90 -- uv run --no-sync 
 ```
 
 This installs the local wheel outside the source checkout, executes the README and
-pool examples, verifies the import path, and checks for zero runtime dependencies.
+pool examples, verifies the import path, and checks for zero base runtime dependencies
+with AnyIO absent. The optional AnyIO extra is checked separately.
 
 ## External cases
 
@@ -41,6 +42,20 @@ It uses real loopback TCP and a one-slot pool. Both cancellations come from Canc
 the oracle tests pool reuse before closing the client. See the [contract, hooks, and
 evidence](httpx/README.md). A cached wheel is accepted only if it has the same published hash.
 
+### LangChain: terminal callbacks under AnyIO cancellation
+
+The [LangChain validation](langchain/README.md) uses an unchanged immutable upstream
+revision, a local tool, and an async callback handler. It runs the new public AnyIO
+sweep and replays a serialized confirmed schedule. The unshielded path loses the
+terminal event; a separately labeled local control uses a bounded real shield and
+records it. The same callback contract also runs under ordinary asyncio cancellation.
+
+Dependencies, including AnyIO, are pinned in an isolated validation environment;
+providers, API credentials, and paid inference are unnecessary. This validates the
+callback mechanism related to [LangChain #41744](https://github.com/langchain-ai/langchain/issues/41744),
+not the whole application's reported failure. Follow that case's command under the
+external watchdog.
+
 ## Read the results
 
 An integration command exits successfully when its selected contract matches the
@@ -49,7 +64,10 @@ mean every schedule in every embedded CancelLens report passed.
 
 Read the selected schedules, cancellation acceptance/delivery, oracle observations,
 coverage, and teardown results together. An unexplained timeout, unresolved prefix,
-or undelivered cancellation does not establish a resource bug. Each case documents
+or undelivered cancellation does not establish a resource bug. In AnyIO mode, one
+scope request can cause repeated deliveries; `cancel_called` alone does not confirm
+delivery. Inspect `exception_observed`, `scope_cancelled_caught`, and any delivery
+uncertainty as well as the oracle result. Each case documents
 outcomes outside its selected contract separately.
 
 Checked-in evidence records the environment and artifacts used for that run. New runs
@@ -77,9 +95,9 @@ process stop closes OS resources but cannot undo external side effects.
 
 ## Evidence on failure
 
-The HTTPX runner saves its summary before setup and retains completed worker reports
+The HTTPX and LangChain runners save summaries before setup and retain completed worker reports
 when checks fail. Workers save results after each replay. On interruption, incremental
-`*.worker.json` files remain beside the requested output. The HTTPX CI job uploads
+`*.worker.json` files remain beside the requested output. Both CI jobs upload
 both the summary and these files with `if: always()`.
 
 The aiosqlite runner writes its aggregate evidence after the comparison completes;

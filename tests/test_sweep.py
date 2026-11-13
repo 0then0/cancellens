@@ -413,7 +413,7 @@ def test_fail_survives_later_unresolved_attempt():
 def test_json_preserves_outcomes_coverage_and_omits_values():
     report = run(pool_case(broken=True))
     data = json.loads(report.to_json())
-    assert data["schema_version"] == 1
+    assert data["schema_version"] == 2
     assert data["outcome"] == "FAIL"
     assert data["coverage"]["single_valid"] == 1
     assert data["coverage"]["complete"] is True

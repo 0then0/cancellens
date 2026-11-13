@@ -69,6 +69,9 @@ def main() -> None:
             + "\n\ndef test_installed_path():\n"
             + "    import cancellens\n"
             + f"    assert {str(root)!r} not in cancellens.__file__\n"
+            + "\n\ndef test_anyio_is_optional():\n"
+            + "    import importlib.util\n"
+            + "    assert importlib.util.find_spec('anyio') is None\n"
         )
         code = watchdog(
             [str(python), "-m", "pytest", "-q", str(work / "test_installed.py")],
@@ -90,7 +93,10 @@ def main() -> None:
             env=env,
             text=True,
         )
-        assert json.loads(metadata) == [], "runtime dependencies unexpectedly present"
+        dependencies = json.loads(metadata)
+        assert len(dependencies) == 1 and 'extra == "anyio"' in dependencies[0].replace("'", '"'), (
+            dependencies
+        )
         print("wheel smoke: pytest example passes outside checkout; zero runtime dependencies")
 
 

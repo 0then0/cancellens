@@ -9,7 +9,7 @@ from dataclasses import asdict, dataclass, field
 from enum import Enum
 from typing import Any
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 class Outcome(str, Enum):
@@ -51,13 +51,32 @@ def interpreter_key() -> str:
 
 @dataclass(frozen=True)
 class Schedule:
-    """One or two cancellation targets and the entire required prefix, indexed from one."""
+    """Cancellation targets and the full required prefix, indexed from one."""
 
     cancel_at: tuple[int, ...] = ()
     prefix: tuple[Point, ...] = ()
     interpreter: str = field(default_factory=interpreter_key)
+    cancellation_mode: str = "asyncio"
+    backend: str = "asyncio"
+    anyio_version: str | None = None
+    schema_version: int = SCHEMA_VERSION
 
     def __post_init__(self) -> None:
+        if self.schema_version not in (1, SCHEMA_VERSION):
+            raise ValueError("Unsupported schedule schema version")
+        if self.cancellation_mode not in ("asyncio", "anyio"):
+            raise ValueError("Unsupported cancellation mode")
+        if self.backend != "asyncio":
+            raise ValueError("Only the asyncio backend is supported")
+        if self.schema_version == 1 and self.cancellation_mode != "asyncio":
+            raise ValueError("Version 1 schedules only describe Task.cancel cancellation")
+        if self.cancellation_mode == "anyio":
+            if len(self.cancel_at) > 1:
+                raise ValueError("AnyIO mode supports only one scope cancellation")
+            if not self.anyio_version or self.anyio_version.split(".")[0] != "4":
+                raise ValueError("AnyIO schedules require an AnyIO 4 version")
+        elif self.anyio_version is not None:
+            raise ValueError("An asyncio schedule cannot specify an AnyIO version")
         if len(self.cancel_at) > 2:
             raise ValueError("At most two cancellations are supported")
         if not self.cancel_at and self.prefix:
@@ -79,18 +98,39 @@ class Schedule:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> Schedule:
+        version = data.get("schema_version", 1)
+        if version == SCHEMA_VERSION and any(
+            key not in data for key in ("cancellation_mode", "backend", "anyio_version")
+        ):
+            raise ValueError(
+                "Version 2 schedules require cancellation mode and environment metadata"
+            )
         prefix = tuple(
             Point(p["index"], p["kind"], tuple(Frame(**f) for f in p["stack"]))
             for p in data["prefix"]
         )
-        return cls(tuple(data["cancel_at"]), prefix, data["interpreter"])
+        return cls(
+            tuple(data["cancel_at"]),
+            prefix,
+            data["interpreter"],
+            data.get("cancellation_mode", "asyncio"),
+            data.get("backend", "asyncio"),
+            data.get("anyio_version"),
+            version,
+        )
 
 
 @dataclass
 class Cancellation:
     point: int
     accepted: bool = False
-    delivered: bool = False
+    delivered: bool | None = False
+    target_reached: bool = True
+    prefix_matched: bool = True
+    scope_cancel_called: bool | None = None
+    exception_observed: bool = False
+    scope_cancelled_caught: bool | None = None
+    delivery_unknown_reason: str | None = None
 
 
 @dataclass(frozen=True)
@@ -127,6 +167,7 @@ class Attempt:
     reasons: list[str] = field(default_factory=list)
     valid_schedule: bool = False
     trace_complete: bool = True
+    cancellation_exceptions: int = 0
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -141,6 +182,7 @@ class Attempt:
             "reasons": self.reasons,
             "valid_schedule": self.valid_schedule,
             "trace_complete": self.trace_complete,
+            "cancellation_exceptions": self.cancellation_exceptions,
         }
 
 
@@ -162,6 +204,9 @@ class Report:
     coverage: Coverage
     limits: dict[str, Any]
     mode: str = "sweep"
+    cancellation_mode: str = "asyncio"
+    backend: str = "asyncio"
+    anyio_version: str | None = None
 
     @property
     def outcome(self) -> Outcome:
@@ -182,6 +227,9 @@ class Report:
             "interpreter": platform.python_version(),
             "implementation": platform.python_implementation(),
             "mode": self.mode,
+            "cancellation_mode": self.cancellation_mode,
+            "backend": self.backend,
+            "anyio_version": self.anyio_version,
             "outcome": self.outcome.value,
             "coverage": asdict(self.coverage),
             "limits": self.limits,
