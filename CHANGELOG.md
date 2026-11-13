@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.2.0
+
 - Extend CPython support through 3.15, including the asyncio and optional AnyIO modes,
   package metadata, and the Linux/Windows CI matrix.
 

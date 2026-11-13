@@ -19,7 +19,7 @@ From the repository root, using the existing development environment:
 
 ```sh
 uv build
-uv run --no-sync python validation/watchdog.py --timeout 300 -- uv run --no-sync python validation/langchain/run.py --wheel dist/cancellens-0.1.0-py3-none-any.whl --repeats 3 --output acceptance-langchain.json
+uv run --no-sync python validation/watchdog.py --timeout 300 -- uv run --no-sync python validation/langchain/run.py --wheel dist/cancellens-0.2.0-py3-none-any.whl --repeats 3 --output acceptance-langchain.json
 ```
 
 The runner downloads a hash-checked archive of the pinned revision, extracts only

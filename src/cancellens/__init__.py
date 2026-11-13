@@ -17,7 +17,7 @@ from ._model import (
 )
 from ._runner import Case, Limits, replay, sweep
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "SCHEMA_VERSION",

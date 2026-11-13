@@ -11,7 +11,7 @@ with `uv sync --locked`. Use `uv run --no-sync` to preserve an existing environm
 
 ```sh
 uv build
-uv run --no-sync python validation/watchdog.py --timeout 90 -- uv run --no-sync python validation/wheel_smoke.py --wheel dist/cancellens-0.1.0-py3-none-any.whl
+uv run --no-sync python validation/watchdog.py --timeout 90 -- uv run --no-sync python validation/wheel_smoke.py --wheel dist/cancellens-0.2.0-py3-none-any.whl
 ```
 
 This installs the local wheel outside the source checkout, executes the README and
@@ -24,7 +24,7 @@ with AnyIO absent. The optional AnyIO extra is checked separately.
 
 ```sh
 uv build
-uv run --no-sync python validation/watchdog.py --timeout 300 -- uv run --no-sync python validation/aiosqlite/run.py --wheel dist/cancellens-0.1.0-py3-none-any.whl --repeats 5 --output acceptance-aiosqlite.json
+uv run --no-sync python validation/watchdog.py --timeout 300 -- uv run --no-sync python validation/aiosqlite/run.py --wheel dist/cancellens-0.2.0-py3-none-any.whl --repeats 5 --output acceptance-aiosqlite.json
 ```
 
 The case checks native SQLite ownership and worker termination before teardown.

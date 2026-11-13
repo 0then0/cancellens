@@ -83,7 +83,7 @@ connections, and sockets rather than relying on interpreter shutdown.
 
 ```sh
 uv build
-uv run --no-sync python validation/wheel_smoke.py --wheel dist/cancellens-0.1.0-py3-none-any.whl
+uv run --no-sync python validation/wheel_smoke.py --wheel dist/cancellens-0.2.0-py3-none-any.whl
 ```
 
 The smoke check installs the wheel in a temporary environment outside the checkout,

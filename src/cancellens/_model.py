@@ -223,7 +223,7 @@ class Report:
     def to_dict(self) -> dict[str, Any]:
         return {
             "schema_version": SCHEMA_VERSION,
-            "package_version": "0.1.0",
+            "package_version": "0.2.0",
             "interpreter": platform.python_version(),
             "implementation": platform.python_implementation(),
             "mode": self.mode,
